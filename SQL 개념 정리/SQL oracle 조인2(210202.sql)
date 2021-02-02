@@ -1,0 +1,64 @@
+# inner join: ANSI 조인 구문
+
+FROM 테이블a 별칭 INNER JOIN 테이블b 별칭 ON 조인조건(연산)
+  --대부분 테이블끼리 연관이 있으면 equi  join 사용 같은 이름을 가진 키 primary key와 foreign key
+    참조 관계에 있는 두개의 컬럼키가 같은것
+
+ex. select e.emp_id,
+           e.emp_name, 
+           e.hire_date, 
+           d.dept_name -- 테이블 별칭을 사용하면 더 편리하다
+    from emp e inner join dept d on e.dept_id= d.dept_id;
+    
+** 세개의 테이블을 조인할 때
+    select 조회할 컬럼
+    from 모두 연관있는 메인테이블 join 조인할 테이블 on 조인조건
+                                 join 조인할 테이블2 on 조인조건
+                                 
+# 오라클 조인 구문
+  - join할 테이블들을 from절에 나열한다
+  - join 연산은 where 절에 기술한다
+  
+  --  select 컬럼
+      from 테이블1,테이블2
+      where 조인조건
+      
+  ex. select e.epm_id,
+             e.emp_name,
+             extract(year from e.hire_date),
+             d.dept_name
+      from emp e, dept d
+      where e.dept_id = d.dept_id;
+      
+# Self 조인
+  - 물리적으로 하나의 테이블을 두개의 테이블처럼 조인하는 것
+    자기가 부모이면서 자식이 되는것
+    같은 데이터들끼리 계층관계를 띌 때
+    
+  select 조회할 컬럼
+  from 테이블 별칭1 join 테이블 별칭 2 on 조인 조건 : 같은 테이블인데 별칭을 달리주어 구분
+  
+  ex. select e1.emp_id,
+             e1.emp_name 직원이름,
+             e2.emp_name 상사이름
+      from emp e1 join emp e2 on e1.mgr_id = e2.emp_id; --e1: 부하직원 테이블 , e2:상사 테이블
+      
+# 아우터 조인(Outer join)
+  -- inner join 의 경우 null인 값을 가질 경우 다 조회가 되지 않는다
+      (해당 정보가 없어도 기본적, 필수적 데이터는 가져오도록 하기 위해 outer join을 사용)
+      
+  - ANSI 문법
+    from 테이블a [LEFT | RIGHT | FULL] OUTER JOIN 테이블b ON 조인조건 (LEFT,RIGHT,FULL을 통해 소스테이블의 방향을 정해줌
+                                    -> outer는 생략가능 (left,right,full로 inner와 outer 구분가능)
+    ex. from emp e right outer join dep d on e.dept_id = d.dept_id ==> 소스테이블은 오른쪽에 있는 dept
+       = from dep d left (outer) join emp e on e.dept_id = d.dept_id ==> left로 쓰는게 직관적이긴 함(가장 먼저 나오는 테이블이 메인 테이블)
+    
+    * full outer join은 소스테이블에 있는 데이터 뿐 아니라 타겟 테이블에있는 데이터도 다 나옴 (결국 둘다 소스 테이블이 되는것)
+    
+  - 오라클 join 문법 
+      - FROM 절에 조인할 테이블을 나열
+      - WHERE 절에 조인 조건을 작성
+      - FULL OUTER JOIN은 지원하지 않는다 (소스테이블은 하나만)
+      - 타겟 테이블에 (+) 를 붙인다 (+)로 타겟테이블 구분
+      - OUTER는 생략 할 수 있다.	
+    
