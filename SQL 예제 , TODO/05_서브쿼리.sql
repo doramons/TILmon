@@ -1,184 +1,325 @@
 /* **************************************************************************
-¼­ºêÄõ¸®(Sub Query)
-- Äõ¸®¾È¿¡¼­ select Äõ¸®¸¦ »ç¿ëÇÏ´Â °Í.
-- ¸ÞÀÎ Äõ¸® - ¼­ºêÄõ¸®
+ì„œë¸Œì¿¼ë¦¬(Sub Query)
+- ì¿¼ë¦¬ì•ˆì—ì„œ select ì¿¼ë¦¬ë¥¼ ì‚¬ìš©í•˜ëŠ” ê²ƒ.
+- ë©”ì¸ ì¿¼ë¦¬ - ì„œë¸Œì¿¼ë¦¬
 
-¼­ºêÄõ¸®°¡ »ç¿ëµÇ´Â ±¸
- - selectÀý, fromÀý, whereÀý, havingÀý
+ì„œë¸Œì¿¼ë¦¬ê°€ ì‚¬ìš©ë˜ëŠ” êµ¬
+ - selectì ˆ, fromì ˆ, whereì ˆ, havingì ˆ
  
-¼­ºêÄõ¸®ÀÇ Á¾·ù
-- ¾î´À ±¸Àý¿¡ »ç¿ëµÇ¾ú´ÂÁö¿¡ µû¸¥ ±¸ºÐ
-    - ½ºÄ®¶ó ¼­ºêÄõ¸® - select Àý¿¡ »ç¿ë. ¹Ýµå½Ã ¼­ºêÄõ¸® °á°ú°¡ 1Çà 1¿­(°ª ÇÏ³ª-½ºÄ®¶ó) 0ÇàÀÌ Á¶È¸µÇ¸é nullÀ» ¹ÝÈ¯
-    - ÀÎ¶óÀÎ ºä - from Àý¿¡ »ç¿ëµÇ¾î Å×ÀÌºíÀÇ ¿ªÇÒÀ» ÇÑ´Ù.
-¼­ºêÄõ¸® Á¶È¸°á°ú Çà¼ö¿¡ µû¸¥ ±¸ºÐ
-    - ´ÜÀÏÇà ¼­ºêÄõ¸® - ¼­ºêÄõ¸®ÀÇ Á¶È¸°á°ú ÇàÀÌ ÇÑÇàÀÎ °Í.
-    - ´ÙÁßÇà ¼­ºêÄõ¸® - ¼­ºêÄõ¸®ÀÇ Á¶È¸°á°ú ÇàÀÌ ¿©·¯ÇàÀÎ °Í.
-µ¿ÀÛ ¹æ½Ä¿¡ µû¸¥ ±¸ºÐ
-    - ºñ»ó°ü(ºñ¿¬°ü) ¼­ºêÄõ¸® - ¼­ºêÄõ¸®¿¡ ¸ÞÀÎÄõ¸®ÀÇ ÄÃ·³ÀÌ »ç¿ëµÇÁö ¾Ê´Â´Ù. ¸ÞÀÎÄõ¸®¿¡ »ç¿ëÇÒ °ªÀ» ¼­ºêÄõ¸®°¡ Á¦°øÇÏ´Â ¿ªÇÒÀ» ÇÑ´Ù.
-    - »ó°ü(¿¬°ü) ¼­ºêÄõ¸® - ¼­ºêÄõ¸®¿¡¼­ ¸ÞÀÎÄõ¸®ÀÇ ÄÃ·³À» »ç¿ëÇÑ´Ù. 
-                            ¸ÞÀÎÄõ¸®°¡ ¸ÕÀú ¼öÇàµÇ¾î ÀÐÇôÁø µ¥ÀÌÅÍ¸¦ ¼­ºêÄõ¸®¿¡¼­ Á¶°ÇÀÌ ¸Â´ÂÁö È®ÀÎÇÏ°íÀÚ ÇÒ¶§ ÁÖ·Î »ç¿ëÇÑ´Ù.
+ì„œë¸Œì¿¼ë¦¬ì˜ ì¢…ë¥˜
+- ì–´ëŠ êµ¬ì ˆì— ì‚¬ìš©ë˜ì—ˆëŠ”ì§€ì— ë”°ë¥¸ êµ¬ë¶„
+    - ìŠ¤ì¹¼ë¼ ì„œë¸Œì¿¼ë¦¬ - select ì ˆì— ì‚¬ìš©. ë°˜ë“œì‹œ ì„œë¸Œì¿¼ë¦¬ ê²°ê³¼ê°€ 1í–‰ 1ì—´(ê°’ í•˜ë‚˜-ìŠ¤ì¹¼ë¼) 0í–‰ì´ ì¡°íšŒë˜ë©´ nullì„ ë°˜í™˜
+    - ì¸ë¼ì¸ ë·° - from ì ˆì— ì‚¬ìš©ë˜ì–´ í…Œì´ë¸”ì˜ ì—­í• ì„ í•œë‹¤.
+ì„œë¸Œì¿¼ë¦¬ ì¡°íšŒê²°ê³¼ í–‰ìˆ˜ì— ë”°ë¥¸ êµ¬ë¶„
+    - ë‹¨ì¼í–‰ ì„œë¸Œì¿¼ë¦¬ - ì„œë¸Œì¿¼ë¦¬ì˜ ì¡°íšŒê²°ê³¼ í–‰ì´ í•œí–‰ì¸ ê²ƒ.
+    - ë‹¤ì¤‘í–‰ ì„œë¸Œì¿¼ë¦¬ - ì„œë¸Œì¿¼ë¦¬ì˜ ì¡°íšŒê²°ê³¼ í–‰ì´ ì—¬ëŸ¬í–‰ì¸ ê²ƒ.
+ë™ìž‘ ë°©ì‹ì— ë”°ë¥¸ êµ¬ë¶„
+    - ë¹„ìƒê´€(ë¹„ì—°ê´€) ì„œë¸Œì¿¼ë¦¬ - ì„œë¸Œì¿¼ë¦¬ì— ë©”ì¸ì¿¼ë¦¬ì˜ ì»¬ëŸ¼ì´ ì‚¬ìš©ë˜ì§€ ì•ŠëŠ”ë‹¤. ë©”ì¸ì¿¼ë¦¬ì— ì‚¬ìš©í•  ê°’ì„ ì„œë¸Œì¿¼ë¦¬ê°€ ì œê³µí•˜ëŠ” ì—­í• ì„ í•œë‹¤.
+    - ìƒê´€(ì—°ê´€) ì„œë¸Œì¿¼ë¦¬ - ì„œë¸Œì¿¼ë¦¬ì—ì„œ ë©”ì¸ì¿¼ë¦¬ì˜ ì»¬ëŸ¼ì„ ì‚¬ìš©í•œë‹¤. 
+                            ë©”ì¸ì¿¼ë¦¬ê°€ ë¨¼ì € ìˆ˜í–‰ë˜ì–´ ì½í˜€ì§„ ë°ì´í„°ë¥¼ ì„œë¸Œì¿¼ë¦¬ì—ì„œ ì¡°ê±´ì´ ë§žëŠ”ì§€ í™•ì¸í•˜ê³ ìž í• ë•Œ ì£¼ë¡œ ì‚¬ìš©í•œë‹¤.
 
-- ¼­ºêÄõ¸®´Â ¹Ýµå½Ã ( ) ·Î ¹­¾îÁà¾ß ÇÑ´Ù.
+- ì„œë¸Œì¿¼ë¦¬ëŠ” ë°˜ë“œì‹œ ( ) ë¡œ ë¬¶ì–´ì¤˜ì•¼ í•œë‹¤.
 ************************************************************************** */
---´ÜÀÏÇà ¼­ºêÄõ¸®
+--ë‹¨ì¼í–‰ ì„œë¸Œì¿¼ë¦¬
 
--- Á÷¿ø_ID(emp.emp_id)°¡ 120¹øÀÎ Á÷¿ø°ú °°Àº ¾÷¹«(emp.job_id)°¡Áø 
--- Á÷¿øÀÇ id(emp_id),ÀÌ¸§(emp.emp_name), ¾÷¹«(emp.job_id), ±Þ¿©(emp.salary) Á¶È¸
+-- ì§ì›_ID(emp.emp_id)ê°€ 120ë²ˆì¸ ì§ì›ê³¼ ê°™ì€ ì—…ë¬´(emp.job_id)ê°€ì§„ 
+-- ì§ì›ì˜ id(emp_id),ì´ë¦„(emp.emp_name), ì—…ë¬´(emp.job_id), ê¸‰ì—¬(emp.salary) ì¡°íšŒ
 
+select job_id
+from emp
+where emp_id = 120;
 
+select emp_id,
+       emp_name,
+       job_id,
+       salary
+from emp
+where job_id = (select job_id
+               from emp
+               where emp_id = 120); -- ì¿¼ë¦¬ ë¬¸ì„ ë‘ë²ˆ í•˜ì§€ ì•Šê³  ì•ˆì— ë„£ìŒ
+               
+-- ì§ì›_id(emp.emp_id)ê°€ 115ë²ˆì¸ ì§ì›ê³¼ ê°™ì€ ì—…ë¬´(emp.job_id)ë¥¼ í•˜ê³  ê°™ì€ ë¶€ì„œ(emp.dept_id)ì— ì†í•œ ì§ì›ë“¤ì„ ì¡°íšŒí•˜ì‹œì˜¤.
 
--- Á÷¿ø_id(emp.emp_id)°¡ 115¹øÀÎ Á÷¿ø°ú °°Àº ¾÷¹«(emp.job_id)¸¦ ÇÏ°í °°Àº ºÎ¼­(emp.dept_id)¿¡ ¼ÓÇÑ Á÷¿øµéÀ» Á¶È¸ÇÏ½Ã¿À.
+--pair ë°©ì‹ ì„œë¸Œì¿¼ë¦¬
+select * 
+from emp
+where (job_id , dept_id) = (select job_id , dept_id 
+                           from emp 
+                           where emp_id = 115);
 
-
-
-
--- Á÷¿øµé Áß ±Þ¿©(emp.salary)°¡ ÀüÃ¼ Á÷¿øÀÇ Æò±Õ ±Þ¿©º¸´Ù ÀûÀº 
--- Á÷¿øµéÀÇ id(emp.emp_id), ÀÌ¸§(emp.emp_name), ±Þ¿©(emp.salary)¸¦ Á¶È¸. ±Þ¿©(emp.salary) ³»¸²Â÷¼ø Á¤·Ä.
-
-
-
-
--- ÀüÃ¼ Á÷¿øÀÇ Æò±Õ ±Þ¿©(emp.salary) ÀÌ»óÀ» ¹Þ´Â ºÎ¼­ÀÇ  ÀÌ¸§(dept.dept_name), ¼Ò¼ÓÁ÷¿øµéÀÇ Æò±Õ ±Þ¿©(emp.salary) Ãâ·Â. 
--- Æò±Õ±Þ¿©´Â ¼Ò¼ýÁ¡ 2ÀÚ¸®±îÁö ³ª¿À°í ÅëÈ­Ç¥½Ã($)¿Í ´ÜÀ§ ±¸ºÐÀÚ Ãâ·Â
-
-
-
-
--- TODO: Á÷¿øÀÇ ID(emp.emp_id)°¡ 145ÀÎ Á÷¿øº¸´Ù ¸¹Àº ¿¬ºÀÀ» ¹Þ´Â Á÷¿øµéÀÇ ÀÌ¸§(emp.emp_name)°ú ±Þ¿©(emp.salary) Á¶È¸.
--- ±Þ¿©°¡ Å« ¼ø¼­´ë·Î Á¶È¸
-
-
-
--- TODO: Á÷¿øÀÇ ID(emp.emp_id)°¡ 150ÀÎ Á÷¿ø°ú °°Àº ¾÷¹«(emp.job_id)¸¦ ÇÏ°í °°Àº »ó»ç(emp.mgr_id)¸¦ °¡Áø Á÷¿øµéÀÇ 
--- id(emp.emp_id), ÀÌ¸§(emp.emp_name), ¾÷¹«(emp.job_id), »ó»ç(emp.mgr_id) ¸¦ Á¶È¸
+--ì¼ë°˜ ì¿¼ë¦¬ëŠ” ì´ë ‡ê²Œ ì•ˆë¨ ì„œë¸Œì¿¼ë¦¬ì—ì„œë§Œ ì§€ì›í•¨ (pairë°©ì‹ ì„œë¸Œì¿¼ë¦¬)
 
 
+-- ì§ì›ë“¤ ì¤‘ ê¸‰ì—¬(emp.salary)ê°€ ì „ì²´ ì§ì›ì˜ í‰ê·  ê¸‰ì—¬ë³´ë‹¤ ì ì€ 
+-- ì§ì›ë“¤ì˜ id(emp.emp_id), ì´ë¦„(emp.emp_name), ê¸‰ì—¬(emp.salary)ë¥¼ ì¡°íšŒ. ê¸‰ì—¬(emp.salary) ë‚´ë¦¼ì°¨ìˆœ ì •ë ¬.
+
+select emp_id,
+       emp_name,
+       salary
+from emp
+where salary < (select avg(salary) from emp)
+order by salary desc;
+
+select avg(salary) from emp;
+
+select emp_id,
+       emp_name,
+       salary
+from emp
+where salary < (select avg(salary) from emp)
+order by salary desc;
+
+-- ì „ì²´ ì§ì›ì˜ í‰ê·  ê¸‰ì—¬(emp.salary) ì´ìƒì„ ë°›ëŠ” ë¶€ì„œì˜  ì´ë¦„(dept.dept_name), ì†Œì†ì§ì›ë“¤ì˜ í‰ê·  ê¸‰ì—¬(emp.salary) ì¶œë ¥. 
+-- í‰ê· ê¸‰ì—¬ëŠ” ì†Œìˆ«ì  2ìžë¦¬ê¹Œì§€ ë‚˜ì˜¤ê³  í†µí™”í‘œì‹œ($)ì™€ ë‹¨ìœ„ êµ¬ë¶„ìž ì¶œë ¥
+
+select d.dept_name,
+       to_char(round(avg(e.salary),2),'$99,999') "í‰ê· ê¸‰ì—¬"
+from emp e join dept d on e.dept_id = d.dept_id
+group by d.dept_name
+having avg(e.salary) >= (select avg(salary) from emp);
+       
+
+select d.dept_name,
+       to_char(round(avg(e.salary),2),'$99,999') "í‰ê· ê¸‰ì—¬"
+from emp e left join dept d on e.dept_id = d.dept_id
+group by d.dept_name
+having avg(salary)>(select avg(salary) from emp);
 
 
--- TODO : EMP Å×ÀÌºí¿¡¼­ Á÷¿ø ÀÌ¸§ÀÌ(emp.emp_name)ÀÌ  'John'ÀÎ Á÷¿øµé Áß¿¡¼­ ±Þ¿©(emp.salary)°¡ °¡Àå ³ôÀº Á÷¿øÀÇ salary(emp.salary)º¸´Ù ¸¹ÀÌ ¹Þ´Â 
--- Á÷¿øµéÀÇ id(emp.emp_id), ÀÌ¸§(emp.emp_name), ±Þ¿©(emp.salary)¸¦ Á÷¿ø ID(emp.emp_id) ¿À¸§Â÷¼øÀ¸·Î Á¶È¸.
+-- TODO: ì§ì›ì˜ ID(emp.emp_id)ê°€ 145ì¸ ì§ì›ë³´ë‹¤ ë§Žì€ ì—°ë´‰ì„ ë°›ëŠ” ì§ì›ë“¤ì˜ ì´ë¦„(emp.emp_name)ê³¼ ê¸‰ì—¬(emp.salary) ì¡°íšŒ.
+-- ê¸‰ì—¬ê°€ í° ìˆœì„œëŒ€ë¡œ ì¡°íšŒ
+
+select emp_name,
+       salary
+from emp
+where salary > (select salary from emp where emp_id = 145);
+
+-- TODO: ì§ì›ì˜ ID(emp.emp_id)ê°€ 150ì¸ ì§ì›ê³¼ ê°™ì€ ì—…ë¬´(emp.job_id)ë¥¼ í•˜ê³  ê°™ì€ ìƒì‚¬(emp.mgr_id)ë¥¼ ê°€ì§„ ì§ì›ë“¤ì˜ 
+-- id(emp.emp_id), ì´ë¦„(emp.emp_name), ì—…ë¬´(emp.job_id), ìƒì‚¬(emp.mgr_id) ë¥¼ ì¡°íšŒ
+
+select emp_id,
+       emp_name,
+       job_id,
+       mgr_id
+from emp
+where (job_id,mgr_id) = (select job_id, mgr_id from emp where emp_id =150); 
+
+
+-- TODO : EMP í…Œì´ë¸”ì—ì„œ ì§ì› ì´ë¦„ì´(emp.emp_name)ì´  'John'ì¸ ì§ì›ë“¤ ì¤‘ì—ì„œ ê¸‰ì—¬(emp.salary)ê°€ ê°€ìž¥ ë†’ì€ ì§ì›ì˜ salary(emp.salary)ë³´ë‹¤ ë§Žì´ ë°›ëŠ” 
+-- ì§ì›ë“¤ì˜ id(emp.emp_id), ì´ë¦„(emp.emp_name), ê¸‰ì—¬(emp.salary)ë¥¼ ì§ì› ID(emp.emp_id) ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì¡°íšŒ.
+
+select emp_id,
+       emp_name,
+       salary
+from emp
+where salary > all(select salary from emp where emp_name = 'John');
+
+select salary from emp where emp_name = 'John';
+
+-- TODO: ê¸‰ì—¬(emp.salary)ê°€ ê°€ìž¥ ë†’ì€ ì§ì›ì´ ì†í•œ ë¶€ì„œì˜ ì´ë¦„(dept.dept_name), ìœ„ì¹˜(dept.loc)ë¥¼ ì¡°íšŒ.
+
+select dept_name,
+       loc
+from dept
+where dept_id = (select dept_id from emp where salary = (select max(salary) from emp));
+
+
+-- TODO: ê¸‰ì—¬(emp.salary)ë¥¼ ì œì¼ ë§Žì´ ë°›ëŠ” ì§ì›ë“¤ì˜ ì´ë¦„(emp.emp_name), ë¶€ì„œëª…(dept.dept_name), ê¸‰ì—¬(emp.salary) ì¡°íšŒ. 
+--       ê¸‰ì—¬ëŠ” ì•žì— $ë¥¼ ë¶™ì´ê³  ë‹¨ìœ„êµ¬ë¶„ìž , ë¥¼ ì¶œë ¥
+
+select e.emp_name,
+       d.dept_name,
+       to_char(e.salary,'$99,999')
+from emp e join dept d on e.dept_id = d.dept_id
+where e.salary = (select max(salary) from emp);
+
+select salary
+from emp
+order by salary desc;
 
 
 
--- TODO: ±Þ¿©(emp.salary)°¡ °¡Àå ³ôÀº Á÷¿øÀÌ ¼ÓÇÑ ºÎ¼­ÀÇ ÀÌ¸§(dept.dept_name), À§Ä¡(dept.loc)¸¦ Á¶È¸.
+-- TODO: ë‹´ë‹¹ ì—…ë¬´ID(emp.job_id) ê°€ 'ST_CLERK'ì¸ ì§ì›ë“¤ì˜ í‰ê·  ê¸‰ì—¬ë³´ë‹¤ ì ì€ ê¸‰ì—¬ë¥¼ ë°›ëŠ” ì§ì›ë“¤ì˜ ëª¨ë“  ì •ë³´ë¥¼ ì¡°íšŒ. ë‹¨ ì—…ë¬´ IDê°€ 'ST_CLERK'ì´ ì•„ë‹Œ ì§ì›ë“¤ë§Œ ì¡°íšŒ. 
+
+select *
+from emp
+where salary < (select avg(salary) from emp where job_id = 'ST_CLERK')
+and job_id != 'ST_CLERK';
+
+-- TODO: 30ë²ˆ ë¶€ì„œ(emp.dept_id) ì˜ í‰ê·  ê¸‰ì—¬(emp.salary)ë³´ë‹¤ ê¸‰ì—¬ê°€ ë§Žì€ ì§ì›ë“¤ì˜ ëª¨ë“  ì •ë³´ë¥¼ ì¡°íšŒ.
+
+select *
+from emp
+where salary > (select avg(salary) from emp where dept_id =30);
+
+-- TODO: EMP í…Œì´ë¸”ì—ì„œ ì—…ë¬´(emp.job_id)ê°€ 'IT_PROG' ì¸ ì§ì›ë“¤ì˜ í‰ê·  ê¸‰ì—¬ ì´ìƒì„ ë°›ëŠ” 
+-- ì§ì›ë“¤ì˜ id(emp.emp_id), ì´ë¦„(emp.emp_name), ê¸‰ì—¬(emp.salary)ë¥¼ ê¸‰ì—¬ ë‚´ë¦¼ì°¨ìˆœìœ¼ë¡œ ì¡°íšŒ.
+
+select emp_id,
+       emp_name,
+       salary
+from emp
+where salary >= (select avg(salary) from emp where job_id = 'IT_PROG')
+order by salary desc;
+
+select avg(salary) from emp where job_id = 'IT_PROG';
 
 
 
+-- TODO: 'IT' ë¶€ì„œ(dept.dept_name)ì˜ ìµœëŒ€ ê¸‰ì—¬ë³´ë‹¤ ë§Žì´ ë°›ëŠ” ì§ì›ì˜ ID(emp.emp_id), ì´ë¦„(emp.emp_name), ìž…ì‚¬ì¼(emp.hire_date), ë¶€ì„œ ID(emp.dept_id), ê¸‰ì—¬(emp.salary) ì¡°íšŒ
+-- ìž…ì‚¬ì¼ì€ "yyyyë…„ mmì›” ddì¼" í˜•ì‹ìœ¼ë¡œ ì¶œë ¥
+-- ê¸‰ì—¬ëŠ” ì•žì— $ë¥¼ ë¶™ì´ê³  ë‹¨ìœ„êµ¬ë¶„ìž , ë¥¼ ì¶œë ¥
 
--- TODO: ±Þ¿©(emp.salary)¸¦ Á¦ÀÏ ¸¹ÀÌ ¹Þ´Â Á÷¿øµéÀÇ ÀÌ¸§(emp.emp_name), ºÎ¼­¸í(dept.dept_name), ±Þ¿©(emp.salary) Á¶È¸. 
---       ±Þ¿©´Â ¾Õ¿¡ $¸¦ ºÙÀÌ°í ´ÜÀ§±¸ºÐÀÚ , ¸¦ Ãâ·Â
+select emp_id,
+       emp_name,
+       to_char(hire_date,'yyyy"ë…„" mm"ì›”" dd"ì¼"') ìž…ì‚¬ì¼,
+       dept_id,
+       salary
+from emp
+where salary > (select max(salary) from emp join dept on emp.dept_id = dept.dept_id where dept_name = 'IT');
 
-
-
-
--- TODO: ´ã´ç ¾÷¹«ID(emp.job_id) °¡ 'ST_CLERK'ÀÎ Á÷¿øµéÀÇ Æò±Õ ±Þ¿©º¸´Ù ÀûÀº ±Þ¿©¸¦ ¹Þ´Â Á÷¿øµéÀÇ ¸ðµç Á¤º¸¸¦ Á¶È¸. ´Ü ¾÷¹« ID°¡ 'ST_CLERK'ÀÌ ¾Æ´Ñ Á÷¿øµé¸¸ Á¶È¸. 
-
-
-
--- TODO: 30¹ø ºÎ¼­(emp.dept_id) ÀÇ Æò±Õ ±Þ¿©(emp.salary)º¸´Ù ±Þ¿©°¡ ¸¹Àº Á÷¿øµéÀÇ ¸ðµç Á¤º¸¸¦ Á¶È¸.
-
-
-
--- TODO: EMP Å×ÀÌºí¿¡¼­ ¾÷¹«(emp.job_id)°¡ 'IT_PROG' ÀÎ Á÷¿øµéÀÇ Æò±Õ ±Þ¿© ÀÌ»óÀ» ¹Þ´Â 
--- Á÷¿øµéÀÇ id(emp.emp_id), ÀÌ¸§(emp.emp_name), ±Þ¿©(emp.salary)¸¦ ±Þ¿© ³»¸²Â÷¼øÀ¸·Î Á¶È¸.
-
-
-
-
-
--- TODO: 'IT' ºÎ¼­(dept.dept_name)ÀÇ ÃÖ´ë ±Þ¿©º¸´Ù ¸¹ÀÌ ¹Þ´Â Á÷¿øÀÇ ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ÀÔ»çÀÏ(emp.hire_date), ºÎ¼­ ID(emp.dept_id), ±Þ¿©(emp.salary) Á¶È¸
--- ÀÔ»çÀÏÀº "yyyy³â mm¿ù ddÀÏ" Çü½ÄÀ¸·Î Ãâ·Â
--- ±Þ¿©´Â ¾Õ¿¡ $¸¦ ºÙÀÌ°í ´ÜÀ§±¸ºÐÀÚ , ¸¦ Ãâ·Â
-
-
-
+select hire
 
 /* ----------------------------------------------
- ´ÙÁßÇà ¼­ºêÄõ¸®
- - ¼­ºêÄõ¸®ÀÇ Á¶È¸ °á°ú°¡ ¿©·¯ÇàÀÎ °æ¿ì
- - whereÀý ¿¡¼­ÀÇ ¿¬»êÀÚ
+ ë‹¤ì¤‘í–‰ ì„œë¸Œì¿¼ë¦¬
+ - ì„œë¸Œì¿¼ë¦¬ì˜ ì¡°íšŒ ê²°ê³¼ê°€ ì—¬ëŸ¬í–‰ì¸ ê²½ìš°
+ - whereì ˆ ì—ì„œì˜ ì—°ì‚°ìž
 	- in
-	- ºñ±³¿¬»êÀÚ any : Á¶È¸µÈ °ªµé Áß ÇÏ³ª¸¸ ÂüÀÌ¸é Âü (where ÄÃ·³ > any(¼­ºêÄõ¸®) )
-	- ºñ±³¿¬»êÀÚ all : Á¶È¸µÈ °ªµé ¸ðµÎ¿Í ÂüÀÌ¸é Âü (where ÄÃ·³ > all(¼­ºêÄõ¸®) )
+	- ë¹„êµì—°ì‚°ìž any : ì¡°íšŒëœ ê°’ë“¤ ì¤‘ í•˜ë‚˜ë§Œ ì°¸ì´ë©´ ì°¸ (where ì»¬ëŸ¼ > any(ì„œë¸Œì¿¼ë¦¬) )
+	- ë¹„êµì—°ì‚°ìž all : ì¡°íšŒëœ ê°’ë“¤ ëª¨ë‘ì™€ ì°¸ì´ë©´ ì°¸ (where ì»¬ëŸ¼ > all(ì„œë¸Œì¿¼ë¦¬) )
 ------------------------------------------------*/
---'Alexander' ¶õ ÀÌ¸§(emp.emp_name)À» °¡Áø °ü¸®ÀÚ(emp.mgr_id)ÀÇ 
--- ºÎÇÏ Á÷¿øµéÀÇ ID(emp_id), ÀÌ¸§(emp_name), ¾÷¹«(job_id), ÀÔ»ç³âµµ(hire_date-³âµµ¸¸Ãâ·Â), ±Þ¿©(salary)¸¦ Á¶È¸
--- ±Þ¿©´Â ¾Õ¿¡ $¸¦ ºÙÀÌ°í ´ÜÀ§±¸ºÐÀÚ , ¸¦ Ãâ·Â
+select * from emp
+where salary > any(2000,3000,4000,5000) order by salary; --() ì•ˆì— ìžˆëŠ”ê²ƒ ì–´ë–¤ê²ƒì¤‘ í•˜ë‚˜ ë³´ë‹¤ í¬ë©´ ë¨
 
-
--- Á÷¿ø ID(emp.emp_id)°¡ 101, 102, 103 ÀÎ Á÷¿øµé º¸´Ù ±Þ¿©(emp.salary)¸¦ ¸¹ÀÌ ¹Þ´Â Á÷¿øÀÇ ¸ðµç Á¤º¸¸¦ Á¶È¸.
-
-
-
--- Á÷¿ø ID(emp.emp_id)°¡ 101, 102, 103 ÀÎ Á÷¿øµé Áß ±Þ¿©°¡ °¡Àå ÀûÀº Á÷¿øº¸´Ù ±Þ¿©¸¦ ¸¹ÀÌ ¹Þ´Â Á÷¿øÀÇ ¸ðµç Á¤º¸¸¦ Á¶È¸.
+select * from emp
+where salary > all(2000,3000,4000,5000) order by salary; --() ì•ˆì— ìžˆëŠ” ëª¨ë“  ìˆ«ìž ë³´ë‹¤ ì»¤ì•¼í•¨
 
 
 
--- TODO : ºÎ¼­ À§Ä¡(dept.loc) °¡ 'New York'ÀÎ ºÎ¼­¿¡ ¼Ò¼ÓµÈ Á÷¿øÀÇ ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ºÎ¼­_id(emp.dept_id) ¸¦ sub query¸¦ ÀÌ¿ëÇØ Á¶È¸.
+--'Alexander' ëž€ ì´ë¦„(emp.emp_name)ì„ ê°€ì§„ ê´€ë¦¬ìž(emp.mgr_id)ì˜ 
+-- ë¶€í•˜ ì§ì›ë“¤ì˜ ID(emp_id), ì´ë¦„(emp_name), ì—…ë¬´(job_id), ìž…ì‚¬ë…„ë„(hire_date-ë…„ë„ë§Œì¶œë ¥), ê¸‰ì—¬(salary)ë¥¼ ì¡°íšŒ
+-- ê¸‰ì—¬ëŠ” ì•žì— $ë¥¼ ë¶™ì´ê³  ë‹¨ìœ„êµ¬ë¶„ìž , ë¥¼ ì¶œë ¥
+
+select emp_id,
+       emp_name,
+       job_id,
+       to_char(hire_date, 'yyyy') hire_year,
+       to_char(salary, '$99,999') salary
+from emp
+where mgr_id in (select emp_id from emp 
+where emp_name = 'Alexander');
+
+-- ì§ì› ID(emp.emp_id)ê°€ 101, 102, 103 ì¸ ì§ì›ë“¤ ë³´ë‹¤ ê¸‰ì—¬(emp.salary)ë¥¼ ë§Žì´ ë°›ëŠ” ì§ì›ì˜ ëª¨ë“  ì •ë³´ë¥¼ ì¡°íšŒ.
+
+select salary
+from emp
+where emp_id in(101,102,103);
+
+select * from emp
+where salary > all(select salary from emp where emp_id in (101,102,103));
+
+select * from emp
+where salary > (select max(salary)
+                from emp
+                where emp_id in (101,102,103));
+
+-- ì§ì› ID(emp.emp_id)ê°€ 101, 102, 103 ì¸ ì§ì›ë“¤ ì¤‘ ê¸‰ì—¬ê°€ ê°€ìž¥ ì ì€ ì§ì›ë³´ë‹¤ ê¸‰ì—¬ë¥¼ ë§Žì´ ë°›ëŠ” ì§ì›ì˜ ëª¨ë“  ì •ë³´ë¥¼ ì¡°íšŒ.
+
+select *
+from emp
+--where salary > any(select salary from emp where emp_id in (101,102,103));
+where salary > (select min(salary) from emp where emp_id in(101,102,103));
+
+select * from emp where emp_id in (101,102,103);
+
+-- TODO : ë¶€ì„œ ìœ„ì¹˜(dept.loc) ê°€ 'New York'ì¸ ë¶€ì„œì— ì†Œì†ëœ ì§ì›ì˜ ID(emp.emp_id), ì´ë¦„(emp.emp_name), ë¶€ì„œ_id(emp.dept_id) ë¥¼ sub queryë¥¼ ì´ìš©í•´ ì¡°íšŒ.
+
+select emp_id,
+       emp_name,
+       dept_id
+from emp
+where dept_id in (select dept_id from dept where loc = 'New York');
+
+select dept_id,loc from dept where loc = 'New York';
+
+-- TODO : ìµœëŒ€ ê¸‰ì—¬(job.max_salary)ê°€ 6000ì´í•˜ì¸ ì—…ë¬´ë¥¼ ë‹´ë‹¹í•˜ëŠ” ì§ì›(emp)ì˜ ëª¨ë“  ì •ë³´ë¥¼ sub queryë¥¼ ì´ìš©í•´ ì¡°íšŒ.
+
+select *
+from emp
+where job_id in (select job_id from job where max_salary <=6000);
+
+select * from job where max_salary <= 6000;
 
 
+-- TODO: ë¶€ì„œ_ID(emp.dept_id)ê°€ 20ì¸ ë¶€ì„œì˜ ì§ì›ë“¤ ë³´ë‹¤ ê¸‰ì—¬(emp.salary)ë¥¼ ë§Žì´ ë°›ëŠ” ì§ì›ë“¤ì˜ ì •ë³´ë¥¼  sub queryë¥¼ ì´ìš©í•´ ì¡°íšŒ.
+
+select *
+from emp
+where salary > all(select salary from emp where dept_id = 20);
+
+select  *
+from emp
+where dept_id = 20;
 
 
--- TODO : ÃÖ´ë ±Þ¿©(job.max_salary)°¡ 6000ÀÌÇÏÀÎ ¾÷¹«¸¦ ´ã´çÇÏ´Â Á÷¿ø(emp)ÀÇ ¸ðµç Á¤º¸¸¦ sub query¸¦ ÀÌ¿ëÇØ Á¶È¸.
+-- TODO: ë¶€ì„œë³„ ê¸‰ì—¬ì˜ í‰ê· ì¤‘ ê°€ìž¥ ì ì€ ë¶€ì„œì˜ í‰ê·  ê¸‰ì—¬ë³´ë‹¤ ë³´ë‹¤ ë§Žì´ ë°›ëŠ” ì§ì›ë“¤ì´ ì´ë¦„, ê¸‰ì—¬, ì—…ë¬´ë¥¼ sub queryë¥¼ ì´ìš©í•´ ì¡°íšŒ
 
+select emp_id,
+       salary,
+       job_id
+from emp
+where salary > (select min(avg(salary)) from emp group by dept_id);
 
+select dept_id,avg(salary) from emp group by dept_id;
+-- TODO: ì—…ë¬´ id(job_id)ê°€ 'SA_REP' ì¸ ì§ì›ë“¤ì¤‘ ê°€ìž¥ ë§Žì€ ê¸‰ì—¬ë¥¼ ë°›ëŠ” ì§ì›ë³´ë‹¤ ë§Žì€ ê¸‰ì—¬ë¥¼ ë°›ëŠ” ì§ì›ë“¤ì˜ ì´ë¦„(emp_name), ê¸‰ì—¬(salary), ì—…ë¬´(job_id) ë¥¼ sub queryë¥¼ ì´ìš©í•´ ì¡°íšŒ.
 
+select emp_name,
+       salary,
+       job_id
+from emp
+where salary > all(select salary from emp where job_id = 'SA_REP');
 
--- TODO: ºÎ¼­_ID(emp.dept_id)°¡ 20ÀÎ ºÎ¼­ÀÇ Á÷¿øµé º¸´Ù ±Þ¿©(emp.salary)¸¦ ¸¹ÀÌ ¹Þ´Â Á÷¿øµéÀÇ Á¤º¸¸¦  sub query¸¦ ÀÌ¿ëÇØ Á¶È¸.
-
-
-
-
--- TODO: ºÎ¼­º° ±Þ¿©ÀÇ Æò±ÕÁß °¡Àå ÀûÀº ºÎ¼­ÀÇ Æò±Õ ±Þ¿©º¸´Ù º¸´Ù ¸¹ÀÌ ¹Þ´Â Á÷¿øµéÀÌ ÀÌ¸§, ±Þ¿©, ¾÷¹«¸¦ sub query¸¦ ÀÌ¿ëÇØ Á¶È¸
-
-
-
-
--- TODO: ¾÷¹« id(job_id)°¡ 'SA_REP' ÀÎ Á÷¿øµéÁß °¡Àå ¸¹Àº ±Þ¿©¸¦ ¹Þ´Â Á÷¿øº¸´Ù ¸¹Àº ±Þ¿©¸¦ ¹Þ´Â Á÷¿øµéÀÇ ÀÌ¸§(emp_name), ±Þ¿©(salary), ¾÷¹«(job_id) ¸¦ sub query¸¦ ÀÌ¿ëÇØ Á¶È¸.
-
-
-
-
+select max(salary) from emp where job_id = 'SA_REP';
 /* ****************************************************************
-»ó°ü(¿¬°ü) Äõ¸®
-¸ÞÀÎÄõ¸®¹®ÀÇ Á¶È¸°ªÀ» ¼­ºêÄõ¸®ÀÇ Á¶°Ç¿¡¼­ »ç¿ëÇÏ´Â Äõ¸®.
-¸ÞÀÎÄõ¸®¸¦ ½ÇÇàÇÏ°í ±× °á°ú¸¦ ¹ÙÅÁÀ¸·Î ¼­ºêÄõ¸®ÀÇ Á¶°ÇÀýÀ» ºñ±³ÇÑ´Ù.
+ìƒê´€(ì—°ê´€) ì¿¼ë¦¬
+ë©”ì¸ì¿¼ë¦¬ë¬¸ì˜ ì¡°íšŒê°’ì„ ì„œë¸Œì¿¼ë¦¬ì˜ ì¡°ê±´ì—ì„œ ì‚¬ìš©í•˜ëŠ” ì¿¼ë¦¬.
+ë©”ì¸ì¿¼ë¦¬ë¥¼ ì‹¤í–‰í•˜ê³  ê·¸ ê²°ê³¼ë¥¼ ë°”íƒ•ìœ¼ë¡œ ì„œë¸Œì¿¼ë¦¬ì˜ ì¡°ê±´ì ˆì„ ë¹„êµí•œë‹¤.
 * ****************************************************************/
--- °¢ ºÎ¼­¿¡¼­(DEPT) ±Þ¿©(emp.salary)¸¦ °¡Àå ¸¹ÀÌ ¹Þ´Â Á÷¿øµéÀÇ id(emp.emp_id), ÀÌ¸§(emp.emp_name), ¿¬ºÀ(emp.salary), ¼Ò¼ÓºÎ¼­ID(dept.dept_id) Á¶È¸
+-- ê° ë¶€ì„œì—ì„œ(DEPT) ê¸‰ì—¬(emp.salary)ë¥¼ ê°€ìž¥ ë§Žì´ ë°›ëŠ” ì§ì›ë“¤ì˜ id(emp.emp_id), ì´ë¦„(emp.emp_name), ì—°ë´‰(emp.salary), ì†Œì†ë¶€ì„œID(dept.dept_id) ì¡°íšŒ
 
 
 
 
 /* ******************************************************************************************************************
-EXISTS, NOT EXISTS ¿¬»êÀÚ (»ó°ü(¿¬°ü)Äõ¸®¿Í °°ÀÌ »ç¿ëµÈ´Ù)
--- ¼­ºêÄõ¸®ÀÇ °á°ú¸¦ ¸¸Á·ÇÏ´Â °ªÀÌ Á¸ÀçÇÏ´ÂÁö ¿©ºÎ¸¦ È®ÀÎÇÏ´Â Á¶°Ç. Á¶°ÇÀ» ¸¸Á·ÇÏ´Â ÇàÀÌ ¿©·¯°³¶óµµ ÇÑÇà¸¸ ÀÖÀ¸¸é ´õÀÌ»ó °Ë»öÇÏÁö ¾Ê´Â´Ù.
+EXISTS, NOT EXISTS ì—°ì‚°ìž (ìƒê´€(ì—°ê´€)ì¿¼ë¦¬ì™€ ê°™ì´ ì‚¬ìš©ëœë‹¤)
+-- ì„œë¸Œì¿¼ë¦¬ì˜ ê²°ê³¼ë¥¼ ë§Œì¡±í•˜ëŠ” ê°’ì´ ì¡´ìž¬í•˜ëŠ”ì§€ ì—¬ë¶€ë¥¼ í™•ì¸í•˜ëŠ” ì¡°ê±´. ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” í–‰ì´ ì—¬ëŸ¬ê°œë¼ë„ í•œí–‰ë§Œ ìžˆìœ¼ë©´ ë”ì´ìƒ ê²€ìƒ‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
 **********************************************************************************************************************/
 
 
--- Á÷¿øÀÌ ÇÑ¸íÀÌ»ó ÀÖ´Â ºÎ¼­ÀÇ ºÎ¼­ID(dept.dept_id)¿Í ÀÌ¸§(dept.dept_name), À§Ä¡(dept.loc)¸¦ Á¶È¸
+-- ì§ì›ì´ í•œëª…ì´ìƒ ìžˆëŠ” ë¶€ì„œì˜ ë¶€ì„œID(dept.dept_id)ì™€ ì´ë¦„(dept.dept_name), ìœ„ì¹˜(dept.loc)ë¥¼ ì¡°íšŒ
 
 
--- Á÷¿øÀÌ ÇÑ¸íµµ ¾ø´Â ºÎ¼­ÀÇ ºÎ¼­ID(dept.dept_id)¿Í ÀÌ¸§(dept.dept_name), À§Ä¡(dept.loc)¸¦ Á¶È¸
+-- ì§ì›ì´ í•œëª…ë„ ì—†ëŠ” ë¶€ì„œì˜ ë¶€ì„œID(dept.dept_id)ì™€ ì´ë¦„(dept.dept_name), ìœ„ì¹˜(dept.loc)ë¥¼ ì¡°íšŒ
 
 
--- ºÎ¼­(dept)¿¡¼­ ¿¬ºÀ(emp.salary)ÀÌ 13000ÀÌ»óÀÎ ÇÑ¸íÀÌ¶óµµ ÀÖ´Â ºÎ¼­ÀÇ ºÎ¼­ID(dept.dept_id)¿Í ÀÌ¸§(dept.dept_name), À§Ä¡(dept.loc)¸¦ Á¶È¸
+-- ë¶€ì„œ(dept)ì—ì„œ ì—°ë´‰(emp.salary)ì´ 13000ì´ìƒì¸ í•œëª…ì´ë¼ë„ ìžˆëŠ” ë¶€ì„œì˜ ë¶€ì„œID(dept.dept_id)ì™€ ì´ë¦„(dept.dept_name), ìœ„ì¹˜(dept.loc)ë¥¼ ì¡°íšŒ
 
 
 
 
 /* ******************************
-ÁÖ¹® °ü·Ã Å×ÀÌºíµé ÀÌ¿ë.
+ì£¼ë¬¸ ê´€ë ¨ í…Œì´ë¸”ë“¤ ì´ìš©.
 ******************************* */
 
---TODO: °í°´(customers) Áß ÁÖ¹®(orders)À» ÇÑ¹ø ÀÌ»ó ÇÑ °í°´µéÀ» Á¶È¸.
+--TODO: ê³ ê°(customers) ì¤‘ ì£¼ë¬¸(orders)ì„ í•œë²ˆ ì´ìƒ í•œ ê³ ê°ë“¤ì„ ì¡°íšŒ.
 
 
---TODO: °í°´(customers) Áß ÁÖ¹®(orders)À» ÇÑ¹øµµ ÇÏÁö ¾ÊÀº °í°´µéÀ» Á¶È¸.
+--TODO: ê³ ê°(customers) ì¤‘ ì£¼ë¬¸(orders)ì„ í•œë²ˆë„ í•˜ì§€ ì•Šì€ ê³ ê°ë“¤ì„ ì¡°íšŒ.
 
 
---TODO: Á¦Ç°(products) Áß ÇÑ¹øÀÌ»ó ÁÖ¹®µÈ Á¦Ç° Á¤º¸ Á¶È¸
+--TODO: ì œí’ˆ(products) ì¤‘ í•œë²ˆì´ìƒ ì£¼ë¬¸ëœ ì œí’ˆ ì •ë³´ ì¡°íšŒ
 
 
---TODO: Á¦Ç°(products)Áß ÁÖ¹®ÀÌ ÇÑ¹øµµ ¾ÈµÈ Á¦Ç° Á¤º¸ Á¶È¸
+--TODO: ì œí’ˆ(products)ì¤‘ ì£¼ë¬¸ì´ í•œë²ˆë„ ì•ˆëœ ì œí’ˆ ì •ë³´ ì¡°íšŒ
 
 
