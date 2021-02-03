@@ -1,55 +1,55 @@
---Ã³¸® ¼ø¼­
-5 select ÄÃ·³ ¼±ÅÃ
-1 from Å×ÀÌºí
-2 where Çà Á¶°Ç
-3 group by ±×·ì ±âÁØ ÄÃ·³
-4 having ±×·ìÀ» ¼±ÅÃÁ¶°Ç
-6 order by Á¤·Ä;
+--ì²˜ë¦¬ ìˆœì„œ
+5 select ì»¬ëŸ¼ ì„ íƒ
+1 from í…Œì´ë¸”
+2 where í–‰ ì¡°ê±´
+3 group by ê·¸ë£¹ ê¸°ì¤€ ì»¬ëŸ¼
+4 having ê·¸ë£¹ì„ ì„ íƒì¡°ê±´
+6 order by ì •ë ¬;
 
 
 
 
 
 /* ****************************************
-Á¶ÀÎ(JOIN) ÀÌ¶õ
-- 2°³ ÀÌ»óÀÇ Å×ÀÌºí¿¡ ÀÖ´Â ÄÃ·³µéÀ» ÇÕÃÄ¼­ °¡»óÀÇ Å×ÀÌºíÀ» ¸¸µé¾î Á¶È¸ÇÏ´Â ¹æ½ÄÀ» ¸»ÇÑ´Ù.
- 	- ¼Ò½ºÅ×ÀÌºí : ³»°¡ ¸ÕÀú ÀĞ¾î¾ß ÇÑ´Ù°í »ı°¢ÇÏ´Â Å×ÀÌºí
-	- Å¸°ÙÅ×ÀÌºí : ¼Ò½º¸¦ ÀĞÀº ÈÄ ¼Ò½º¿¡ Á¶ÀÎÇÒ ´ë»óÀÌ µÇ´Â Å×ÀÌºí (ºÎ°¡Á¤º¸, Ãß°¡Á¤º¸¸¦ ¾Ë·ÁÁÖ´Â°Í)
-    ** ¼Ò½º Å×ÀÌºí°ú Å¸°Ù Å×ÀÌºíÀº ºÎ¸ğ, ÀÚ½ÄÅ×ÀÌºíÀÇ °ü°è¿Í »ó°ü¾øÀÌ ³»°¡ Á¶È¸ÇÏ°í ½ÍÀº ÁÖ¿ä µ¥ÀÌÅÍ°¡ ¹«¾ùÀÎÁö¿¡ µû¶ó °áÁ¤µÈ´Ù.
-- °¢ Å×ÀÌºíÀ» ¾î¶»°Ô ÇÕÄ¥Áö¸¦ Ç¥ÇöÇÏ´Â °ÍÀ» Á¶ÀÎ ¿¬»êÀÌ¶ó°í ÇÑ´Ù.
-    - Á¶ÀÎ ¿¬»ê¿¡ µû¸¥ Á¶ÀÎÁ¾·ù
+ì¡°ì¸(JOIN) ì´ë€
+- 2ê°œ ì´ìƒì˜ í…Œì´ë¸”ì— ìˆëŠ” ì»¬ëŸ¼ë“¤ì„ í•©ì³ì„œ ê°€ìƒì˜ í…Œì´ë¸”ì„ ë§Œë“¤ì–´ ì¡°íšŒí•˜ëŠ” ë°©ì‹ì„ ë§í•œë‹¤.
+ 	- ì†ŒìŠ¤í…Œì´ë¸” : ë‚´ê°€ ë¨¼ì € ì½ì–´ì•¼ í•œë‹¤ê³  ìƒê°í•˜ëŠ” í…Œì´ë¸”
+	- íƒ€ê²Ÿí…Œì´ë¸” : ì†ŒìŠ¤ë¥¼ ì½ì€ í›„ ì†ŒìŠ¤ì— ì¡°ì¸í•  ëŒ€ìƒì´ ë˜ëŠ” í…Œì´ë¸” (ë¶€ê°€ì •ë³´, ì¶”ê°€ì •ë³´ë¥¼ ì•Œë ¤ì£¼ëŠ”ê²ƒ)
+    ** ì†ŒìŠ¤ í…Œì´ë¸”ê³¼ íƒ€ê²Ÿ í…Œì´ë¸”ì€ ë¶€ëª¨, ìì‹í…Œì´ë¸”ì˜ ê´€ê³„ì™€ ìƒê´€ì—†ì´ ë‚´ê°€ ì¡°íšŒí•˜ê³  ì‹¶ì€ ì£¼ìš” ë°ì´í„°ê°€ ë¬´ì—‡ì¸ì§€ì— ë”°ë¼ ê²°ì •ëœë‹¤.
+- ê° í…Œì´ë¸”ì„ ì–´ë–»ê²Œ í•©ì¹ ì§€ë¥¼ í‘œí˜„í•˜ëŠ” ê²ƒì„ ì¡°ì¸ ì—°ì‚°ì´ë¼ê³  í•œë‹¤.
+    - ì¡°ì¸ ì—°ì‚°ì— ë”°ë¥¸ ì¡°ì¸ì¢…ë¥˜
         - Equi join , non-equi join
-- Á¶ÀÎÀÇ Á¾·ù
+- ì¡°ì¸ì˜ ì¢…ë¥˜
     - Inner Join 
-        - ¾çÂÊ Å×ÀÌºí¿¡¼­ Á¶ÀÎ Á¶°ÇÀ» ¸¸Á·ÇÏ´Â Çàµé¸¸ ÇÕÄ£´Ù. (Á¶°ÇÀ» ¸¸Á·ÇÏÁö ¾Ê´Â ÇàÀº Á¦¿Ü)
+        - ì–‘ìª½ í…Œì´ë¸”ì—ì„œ ì¡°ì¸ ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” í–‰ë“¤ë§Œ í•©ì¹œë‹¤. (ì¡°ê±´ì„ ë§Œì¡±í•˜ì§€ ì•ŠëŠ” í–‰ì€ ì œì™¸)
     - Outer Join
-        - ÇÑÂÊ Å×ÀÌºí(¼Ò½ºÅ×ÀÌºí)ÀÇ ÇàµéÀ» ¸ğµÎ »ç¿ëÇÏ°í ´Ù¸¥ ÂÊ Å×ÀÌºí(Å¸°ÙÅ×ÀÌºí)Àº Á¶ÀÎ Á¶°ÇÀ» ¸¸Á·ÇÏ´Â Çà¸¸ ÇÕÄ£´Ù. Á¶ÀÎÁ¶°ÇÀ» ¸¸Á·ÇÏ´Â ÇàÀÌ ¾ø´Â °æ¿ì NULLÀ» ÇÕÄ£´Ù.
-        - Á¾·ù : Left Outer Join,  Right Outer Join, Full Outer Join
+        - í•œìª½ í…Œì´ë¸”(ì†ŒìŠ¤í…Œì´ë¸”)ì˜ í–‰ë“¤ì„ ëª¨ë‘ ì‚¬ìš©í•˜ê³  ë‹¤ë¥¸ ìª½ í…Œì´ë¸”(íƒ€ê²Ÿí…Œì´ë¸”)ì€ ì¡°ì¸ ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” í–‰ë§Œ í•©ì¹œë‹¤. ì¡°ì¸ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” í–‰ì´ ì—†ëŠ” ê²½ìš° NULLì„ í•©ì¹œë‹¤.
+        - ì¢…ë¥˜ : Left Outer Join,  Right Outer Join, Full Outer Join
     - Cross Join
-        - µÎ Å×ÀÌºíÀÇ °öÁıÇÕÀ» ¹İÈ¯ÇÑ´Ù. 
-- Á¶ÀÎ ¹®¹ı
-    - ANSI Á¶ÀÎ ¹®¹ı(¸ğµç DB¿¡¼­ °øÅëÀûÀ¸·Î »ç¿ëÇÏ´Â ¹®¹ı)
-        - Ç¥ÁØ SQL ¹®¹ı
-        - ¿À¶óÅ¬Àº 9i ºÎÅÍ Áö¿ø.
-    - ¿À¶óÅ¬ Á¶ÀÎ ¹®¹ı
-        - ¿À¶óÅ¬ Àü¿ë ¹®¹ıÀÌ¸ç ´Ù¸¥ DBMS´Â Áö¿øÇÏÁö ¾Ê´Â´Ù.
+        - ë‘ í…Œì´ë¸”ì˜ ê³±ì§‘í•©ì„ ë°˜í™˜í•œë‹¤. 
+- ì¡°ì¸ ë¬¸ë²•
+    - ANSI ì¡°ì¸ ë¬¸ë²•(ëª¨ë“  DBì—ì„œ ê³µí†µì ìœ¼ë¡œ ì‚¬ìš©í•˜ëŠ” ë¬¸ë²•)
+        - í‘œì¤€ SQL ë¬¸ë²•
+        - ì˜¤ë¼í´ì€ 9i ë¶€í„° ì§€ì›.
+    - ì˜¤ë¼í´ ì¡°ì¸ ë¬¸ë²•
+        - ì˜¤ë¼í´ ì „ìš© ë¬¸ë²•ì´ë©° ë‹¤ë¥¸ DBMSëŠ” ì§€ì›í•˜ì§€ ì•ŠëŠ”ë‹¤.
 **************************************** */        
         
 
 /* ****************************************
--- inner join : ANSI Á¶ÀÎ ±¸¹®
-FROM  Å×ÀÌºía º°Äª INNER JOIN Å×ÀÌºíb º°Äª ON Á¶ÀÎÁ¶°Ç 
+-- inner join : ANSI ì¡°ì¸ êµ¬ë¬¸
+FROM  í…Œì´ë¸”a ë³„ì¹­ INNER JOIN í…Œì´ë¸”b ë³„ì¹­ ON ì¡°ì¸ì¡°ê±´ 
 
-- inner´Â »ı·« ÇÒ ¼ö ÀÖ´Ù.
+- innerëŠ” ìƒëµ í•  ìˆ˜ ìˆë‹¤.
 **************************************** */
--- Á÷¿øÀÇ ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ÀÔ»ç³âµµ(emp.hire_date), ¼Ò¼ÓºÎ¼­ÀÌ¸§(dept.dept_name)À» Á¶È¸
+-- ì§ì›ì˜ ID(emp.emp_id), ì´ë¦„(emp.emp_name), ì…ì‚¬ë…„ë„(emp.hire_date), ì†Œì†ë¶€ì„œì´ë¦„(dept.dept_name)ì„ ì¡°íšŒ
 
 select e.emp_id, 
        e.emp_name,
        e.hire_date,
-       d.dept_id, -- dept_id ´Â emp,dept ¸ğµÎ °°Àº ÀÌ¸§ÀÇ ÄÃ·³ÀÌ ÀÖ±â ¶§¹®¿¡ ¾î¶² Å×ÀÌºí¿¡¼­ °¡Á®¿ÃÁö Á¤ÇØ¾ßÇÑ´Ù
+       d.dept_id, -- dept_id ëŠ” emp,dept ëª¨ë‘ ê°™ì€ ì´ë¦„ì˜ ì»¬ëŸ¼ì´ ìˆê¸° ë•Œë¬¸ì— ì–´ë–¤ í…Œì´ë¸”ì—ì„œ ê°€ì ¸ì˜¬ì§€ ì •í•´ì•¼í•œë‹¤
        d.dept_name
-from emp e inner join dept d on e.dept_id= d.dept_id; -- emp¿¡¼­ dept_id°¡ nullÀÎ »ç¶÷ Á¦¿ÜÇÏ°í °á°ú Á¶È¸µÊ
+from emp e inner join dept d on e.dept_id= d.dept_id; -- empì—ì„œ dept_idê°€ nullì¸ ì‚¬ëŒ ì œì™¸í•˜ê³  ê²°ê³¼ ì¡°íšŒë¨
 
 select * from emp where dept_id is null;
 
@@ -58,16 +58,16 @@ select * from dept;
 
 
 
--- Á÷¿øÀÇ ID(emp.emp_id)°¡ 100ÀÎ Á÷¿øÀÇ Á÷¿ø_ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ÀÔ»ç³âµµ(emp.hire_date), ¼Ò¼ÓºÎ¼­ÀÌ¸§(dept.dept_name)À» Á¶È¸.
+-- ì§ì›ì˜ ID(emp.emp_id)ê°€ 100ì¸ ì§ì›ì˜ ì§ì›_ID(emp.emp_id), ì´ë¦„(emp.emp_name), ì…ì‚¬ë…„ë„(emp.hire_date), ì†Œì†ë¶€ì„œì´ë¦„(dept.dept_name)ì„ ì¡°íšŒ.
 
 select e.emp_id,
        e.emp_name,
        extract(year from e.hire_date),
        d.dept_name
-from emp e join dept d on e.dept_id = d.dept_id -- inner´Â »ı·«°¡´É
+from emp e join dept d on e.dept_id = d.dept_id -- innerëŠ” ìƒëµê°€ëŠ¥
 where e.emp_id= 100;
 
--- Á÷¿ø_ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ±Ş¿©(emp.salary), ´ã´ç¾÷¹«¸í(job.job_title), ¼Ò¼ÓºÎ¼­ÀÌ¸§(dept.dept_name)À» Á¶È¸
+-- ì§ì›_ID(emp.emp_id), ì´ë¦„(emp.emp_name), ê¸‰ì—¬(emp.salary), ë‹´ë‹¹ì—…ë¬´ëª…(job.job_title), ì†Œì†ë¶€ì„œì´ë¦„(dept.dept_name)ì„ ì¡°íšŒ
 
 select e.emp_id,
        e.emp_name,
@@ -75,10 +75,10 @@ select e.emp_id,
        j.job_title,
        d.dept_id,
        d.dept_name
-from emp e join job j on e.job_id = j.job_id  -- empÅ×ÀÌºí°ú jobÅ×ÀÌºíÀ» ÇÕÄ£°Í
-           join dept d on e.dept_id = d.dept_id; --joinÀ» ÇÏ³ª ´õ ºÙ¿©¼­ deptÅ×ÀÌºí ºÙÀÓ
+from emp e join job j on e.job_id = j.job_id  -- empí…Œì´ë¸”ê³¼ jobí…Œì´ë¸”ì„ í•©ì¹œê²ƒ
+           join dept d on e.dept_id = d.dept_id; --joinì„ í•˜ë‚˜ ë” ë¶™ì—¬ì„œ deptí…Œì´ë¸” ë¶™ì„
 
--- ºÎ¼­_ID(dept.dept_id)°¡ 30ÀÎ ºÎ¼­ÀÇ ÀÌ¸§(dept.dept_name), À§Ä¡(dept.loc), ±× ºÎ¼­¿¡ ¼Ò¼ÓµÈ Á÷¿øÀÇ ÀÌ¸§(emp.emp_name)À» Á¶È¸.
+-- ë¶€ì„œ_ID(dept.dept_id)ê°€ 30ì¸ ë¶€ì„œì˜ ì´ë¦„(dept.dept_name), ìœ„ì¹˜(dept.loc), ê·¸ ë¶€ì„œì— ì†Œì†ëœ ì§ì›ì˜ ì´ë¦„(emp.emp_name)ì„ ì¡°íšŒ.
 
 select d.dept_name,
        d.loc,
@@ -89,17 +89,17 @@ where d.dept_id = 30;
 select * from dept where dept_id = 30;
 select * from emp where dept_id = 30;
 
--- Á÷¿øÀÇ ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ±Ş¿©(emp.salary), ±Ş¿©µî±Ş(salary_grade.grade) ¸¦ Á¶È¸. ±Ş¿© µî±Ş ¿À¸§Â÷¼øÀ¸·Î Á¤·Ä
+-- ì§ì›ì˜ ID(emp.emp_id), ì´ë¦„(emp.emp_name), ê¸‰ì—¬(emp.salary), ê¸‰ì—¬ë“±ê¸‰(salary_grade.grade) ë¥¼ ì¡°íšŒ. ê¸‰ì—¬ ë“±ê¸‰ ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì •ë ¬
 
 select e.emp_id,
        e.emp_name,
        e.salary,
        s.grade
 from emp e join salary_grade s on e.salary between s.low_sal and s.high_sal;
--- non equi join : equal¿¬»êÀÚ¸¦ ¾²Áö¾ÊÀ½
+-- non equi join : equalì—°ì‚°ìë¥¼ ì“°ì§€ì•ŠìŒ
 
---TODO 200¹ø´ë(200 ~ 299) Á÷¿ø ID(emp.emp_id)¸¦ °¡Áø Á÷¿øµéÀÇ Á÷¿ø_ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ±Ş¿©(emp.salary), 
---     ¼Ò¼ÓºÎ¼­ÀÌ¸§(dept.dept_name), ºÎ¼­À§Ä¡(dept.loc)¸¦ Á¶È¸. Á÷¿ø_IDÀÇ ¿À¸§Â÷¼øÀ¸·Î Á¤·Ä.
+--TODO 200ë²ˆëŒ€(200 ~ 299) ì§ì› ID(emp.emp_id)ë¥¼ ê°€ì§„ ì§ì›ë“¤ì˜ ì§ì›_ID(emp.emp_id), ì´ë¦„(emp.emp_name), ê¸‰ì—¬(emp.salary), 
+--     ì†Œì†ë¶€ì„œì´ë¦„(dept.dept_name), ë¶€ì„œìœ„ì¹˜(dept.loc)ë¥¼ ì¡°íšŒ. ì§ì›_IDì˜ ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì •ë ¬.
 
 select e.emp_id,
        e.emp_name,
@@ -111,8 +111,8 @@ where e.emp_id between 200 and 299
 order by e.emp_id;
 
 
---TODO ¾÷¹«(emp.job_id)°¡ 'FI_ACCOUNT'ÀÎ Á÷¿øÀÇ ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ¾÷¹«(emp.job_id), 
---     ¼Ò¼ÓºÎ¼­ÀÌ¸§(dept.dept_name), ºÎ¼­À§Ä¡(dept.loc)¸¦ Á¶È¸.  Á÷¿ø_IDÀÇ ¿À¸§Â÷¼øÀ¸·Î Á¤·Ä.
+--TODO ì—…ë¬´(emp.job_id)ê°€ 'FI_ACCOUNT'ì¸ ì§ì›ì˜ ID(emp.emp_id), ì´ë¦„(emp.emp_name), ì—…ë¬´(emp.job_id), 
+--     ì†Œì†ë¶€ì„œì´ë¦„(dept.dept_name), ë¶€ì„œìœ„ì¹˜(dept.loc)ë¥¼ ì¡°íšŒ.  ì§ì›_IDì˜ ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì •ë ¬.
 
 select e.emp_id,
        e.emp_name,
@@ -123,8 +123,8 @@ from emp e join dept d on e.dept_id = d.dept_id
 where e.job_id = 'FI_ACCOUNT'
 order by e.emp_id;
 
---TODO Ä¿¹Ì¼ÇºñÀ²(emp.comm_pct)ÀÌ ÀÖ´Â Á÷¿øµéÀÇ Á÷¿ø_ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ±Ş¿©(emp.salary), Ä¿¹Ì¼ÇºñÀ²(emp.comm_pct), 
---     ¼Ò¼ÓºÎ¼­ÀÌ¸§(dept.dept_name), ºÎ¼­À§Ä¡(dept.loc)¸¦ Á¶È¸. Á÷¿ø_IDÀÇ ¿À¸§Â÷¼øÀ¸·Î Á¤·Ä.
+--TODO ì»¤ë¯¸ì…˜ë¹„ìœ¨(emp.comm_pct)ì´ ìˆëŠ” ì§ì›ë“¤ì˜ ì§ì›_ID(emp.emp_id), ì´ë¦„(emp.emp_name), ê¸‰ì—¬(emp.salary), ì»¤ë¯¸ì…˜ë¹„ìœ¨(emp.comm_pct), 
+--     ì†Œì†ë¶€ì„œì´ë¦„(dept.dept_name), ë¶€ì„œìœ„ì¹˜(dept.loc)ë¥¼ ì¡°íšŒ. ì§ì›_IDì˜ ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì •ë ¬.
 
 select e.emp_id,
        e.emp_name,
@@ -137,8 +137,8 @@ where e.comm_pct is not null
 order by e.emp_id;
 
 
---TODO 'New York'¿¡ À§Ä¡ÇÑ(dept.loc) ºÎ¼­ÀÇ ºÎ¼­_ID(dept.dept_id), ºÎ¼­ÀÌ¸§(dept.dept_name), À§Ä¡(dept.loc), 
---     ±× ºÎ¼­¿¡ ¼Ò¼ÓµÈ Á÷¿ø_ID(emp.emp_id), Á÷¿ø ÀÌ¸§(emp.emp_name), ¾÷¹«(emp.job_id)¸¦ Á¶È¸. ºÎ¼­_ID ÀÇ ¿À¸§Â÷¼øÀ¸·Î Á¤·Ä.
+--TODO 'New York'ì— ìœ„ì¹˜í•œ(dept.loc) ë¶€ì„œì˜ ë¶€ì„œ_ID(dept.dept_id), ë¶€ì„œì´ë¦„(dept.dept_name), ìœ„ì¹˜(dept.loc), 
+--     ê·¸ ë¶€ì„œì— ì†Œì†ëœ ì§ì›_ID(emp.emp_id), ì§ì› ì´ë¦„(emp.emp_name), ì—…ë¬´(emp.job_id)ë¥¼ ì¡°íšŒ. ë¶€ì„œ_ID ì˜ ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì •ë ¬.
 
 select d.dept_id,
        d.dept_name,
@@ -151,7 +151,7 @@ where d.loc = INITCAP('New York')
 order by d.dept_id;
     
 
---TODO Á÷¿ø_ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ¾÷¹«_ID(emp.job_id), ¾÷¹«¸í(job.job_title) ¸¦ Á¶È¸.
+--TODO ì§ì›_ID(emp.emp_id), ì´ë¦„(emp.emp_name), ì—…ë¬´_ID(emp.job_id), ì—…ë¬´ëª…(job.job_title) ë¥¼ ì¡°íšŒ.
 
 select e.emp_id,
        e.emp_name,
@@ -160,8 +160,8 @@ select e.emp_id,
 from emp e join job j on e.job_id = j.job_id;
 
               
--- TODO: Á÷¿ø ID °¡ 200 ÀÎ Á÷¿øÀÇ Á÷¿ø_ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ±Ş¿©(emp.salary), 
---       ´ã´ç¾÷¹«¸í(job.job_title), ¼Ò¼ÓºÎ¼­ÀÌ¸§(dept.dept_name)À» Á¶È¸              
+-- TODO: ì§ì› ID ê°€ 200 ì¸ ì§ì›ì˜ ì§ì›_ID(emp.emp_id), ì´ë¦„(emp.emp_name), ê¸‰ì—¬(emp.salary), 
+--       ë‹´ë‹¹ì—…ë¬´ëª…(job.job_title), ì†Œì†ë¶€ì„œì´ë¦„(dept.dept_name)ì„ ì¡°íšŒ              
 
 select e.emp_id,
        e.emp_name,
@@ -172,8 +172,8 @@ from emp e join job j on e.job_id = j.job_id
             join dept d on e.dept_id = d.dept_id
 where e.emp_id = 200;
 
--- TODO: 'Shipping' ºÎ¼­ÀÇ ºÎ¼­¸í(dept.dept_name), À§Ä¡(dept.loc), ¼Ò¼Ó Á÷¿øÀÇ ÀÌ¸§(emp.emp_name), ¾÷¹«¸í(job.job_title)À» Á¶È¸. 
---       Á÷¿øÀÌ¸§ ³»¸²Â÷¼øÀ¸·Î Á¤·Ä
+-- TODO: 'Shipping' ë¶€ì„œì˜ ë¶€ì„œëª…(dept.dept_name), ìœ„ì¹˜(dept.loc), ì†Œì† ì§ì›ì˜ ì´ë¦„(emp.emp_name), ì—…ë¬´ëª…(job.job_title)ì„ ì¡°íšŒ. 
+--       ì§ì›ì´ë¦„ ë‚´ë¦¼ì°¨ìˆœìœ¼ë¡œ ì •ë ¬
 
 select d.dept_name,
        d.loc,
@@ -184,8 +184,8 @@ from dept d join emp e on d.dept_id = e.dept_id
 where d.dept_name = 'Shipping'
 order by e.emp_name desc;
 
--- TODO:  'San Francisco' ¿¡ ±Ù¹«(dept.loc)ÇÏ´Â Á÷¿øÀÇ id(emp.emp_id), ÀÌ¸§(emp.emp_name), ÀÔ»çÀÏ(emp.hire_date)¸¦ Á¶È¸
---         ÀÔ»çÀÏÀº 'yyyy-mm-dd' Çü½ÄÀ¸·Î Ãâ·Â
+-- TODO:  'San Francisco' ì— ê·¼ë¬´(dept.loc)í•˜ëŠ” ì§ì›ì˜ id(emp.emp_id), ì´ë¦„(emp.emp_name), ì…ì‚¬ì¼(emp.hire_date)ë¥¼ ì¡°íšŒ
+--         ì…ì‚¬ì¼ì€ 'yyyy-mm-dd' í˜•ì‹ìœ¼ë¡œ ì¶œë ¥
 
 select e.emp_id,
        e.emp_name,
@@ -193,8 +193,8 @@ select e.emp_id,
 from emp e join dept d on e.dept_id = d.dept_id
 where d.loc = 'San Francisco';
 
--- TODO ºÎ¼­º° ±Ş¿©(salary)ÀÇ Æò±ÕÀ» Á¶È¸. ºÎ¼­ÀÌ¸§(dept.dept_name)°ú ±Ş¿©Æò±ÕÀ» Ãâ·Â. ±Ş¿© Æò±ÕÀÌ ³ôÀº ¼ø¼­·Î Á¤·Ä.
--- ±Ş¿©´Â , ´ÜÀ§±¸ºĞÀÚ¿Í $ ¸¦ ºÙ¿© Ãâ·Â.
+-- TODO ë¶€ì„œë³„ ê¸‰ì—¬(salary)ì˜ í‰ê· ì„ ì¡°íšŒ. ë¶€ì„œì´ë¦„(dept.dept_name)ê³¼ ê¸‰ì—¬í‰ê· ì„ ì¶œë ¥. ê¸‰ì—¬ í‰ê· ì´ ë†’ì€ ìˆœì„œë¡œ ì •ë ¬.
+-- ê¸‰ì—¬ëŠ” , ë‹¨ìœ„êµ¬ë¶„ìì™€ $ ë¥¼ ë¶™ì—¬ ì¶œë ¥.
 
 select d.dept_name,
        round(avg(e.salary),2)
@@ -203,8 +203,8 @@ group by d.dept_name
 order by avg(e.salary) desc;
 
 
---TODO Á÷¿øÀÇ ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ¾÷¹«¸í(job.job_title), ±Ş¿©(emp.salary), 
---     ±Ş¿©µî±Ş(salary_grade.grade), ¼Ò¼ÓºÎ¼­¸í(dept.dept_name)À» Á¶È¸. µî±Ş ³»¸²Â÷¼øÀ¸·Î Á¤·Ä
+--TODO ì§ì›ì˜ ID(emp.emp_id), ì´ë¦„(emp.emp_name), ì—…ë¬´ëª…(job.job_title), ê¸‰ì—¬(emp.salary), 
+--     ê¸‰ì—¬ë“±ê¸‰(salary_grade.grade), ì†Œì†ë¶€ì„œëª…(dept.dept_name)ì„ ì¡°íšŒ. ë“±ê¸‰ ë‚´ë¦¼ì°¨ìˆœìœ¼ë¡œ ì •ë ¬
 
 select e.emp_id,
        e.emp_name,
@@ -219,7 +219,7 @@ order by s.grade desc;
 
 
 
---TODO ºÎ¼­º° ±Ş¿©µî±ŞÀÌ(salary_grade.grade) 1ÀÎ Á÷¿øÀÖ´Â ºÎ¼­ÀÌ¸§(dept.dept_name)°ú 1µî±ŞÀÎ Á÷¿ø¼ö Á¶È¸. Á÷¿ø¼ö°¡ ¸¹Àº ºÎ¼­ ¼ø¼­´ë·Î Á¤·Ä.
+--TODO ë¶€ì„œë³„ ê¸‰ì—¬ë“±ê¸‰ì´(salary_grade.grade) 1ì¸ ì§ì›ìˆëŠ” ë¶€ì„œì´ë¦„(dept.dept_name)ê³¼ 1ë“±ê¸‰ì¸ ì§ì›ìˆ˜ ì¡°íšŒ. ì§ì›ìˆ˜ê°€ ë§ì€ ë¶€ì„œ ìˆœì„œëŒ€ë¡œ ì •ë ¬.
 
 select d.dept_name,
        count(*)
@@ -229,145 +229,237 @@ where s.grade = 1
 group by d.dept_name
 order by count(*) desc;
 /* ###################################################################################### 
-¿À¶óÅ¬ Á¶ÀÎ 
-- JoinÇÒ Å×ÀÌºíµéÀ» fromÀı¿¡ ³ª¿­ÇÑ´Ù.
-- Join ¿¬»êÀº whereÀı¿¡ ±â¼úÇÑ´Ù. 
+ì˜¤ë¼í´ ì¡°ì¸ 
+- Joiní•  í…Œì´ë¸”ë“¤ì„ fromì ˆì— ë‚˜ì—´í•œë‹¤.
+- Join ì—°ì‚°ì€ whereì ˆì— ê¸°ìˆ í•œë‹¤. 
 
 ###################################################################################### */
--- Á÷¿øÀÇ ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ÀÔ»ç³âµµ(emp.hire_date), ¼Ò¼ÓºÎ¼­ÀÌ¸§(dept.dept_name)À» Á¶È¸
--- ÀÔ»ç³âµµ´Â ³âµµ¸¸ Ãâ·Â
+-- ì§ì›ì˜ ID(emp.emp_id), ì´ë¦„(emp.emp_name), ì…ì‚¬ë…„ë„(emp.hire_date), ì†Œì†ë¶€ì„œì´ë¦„(dept.dept_name)ì„ ì¡°íšŒ
+-- ì…ì‚¬ë…„ë„ëŠ” ë…„ë„ë§Œ ì¶œë ¥
 
 
--- Á÷¿øÀÇ ID(emp.emp_id)°¡ 100ÀÎ Á÷¿øÀÇ Á÷¿ø_ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ÀÔ»ç³âµµ(emp.hire_date), ¼Ò¼ÓºÎ¼­ÀÌ¸§(dept.dept_name)À» Á¶È¸
--- ÀÔ»ç³âµµ´Â ³âµµ¸¸ Ãâ·Â
+-- ì§ì›ì˜ ID(emp.emp_id)ê°€ 100ì¸ ì§ì›ì˜ ì§ì›_ID(emp.emp_id), ì´ë¦„(emp.emp_name), ì…ì‚¬ë…„ë„(emp.hire_date), ì†Œì†ë¶€ì„œì´ë¦„(dept.dept_name)ì„ ì¡°íšŒ
+-- ì…ì‚¬ë…„ë„ëŠ” ë…„ë„ë§Œ ì¶œë ¥
 
 
--- Á÷¿ø_ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ±Ş¿©(emp.salary), ´ã´ç¾÷¹«¸í(job.job_title), ¼Ò¼ÓºÎ¼­ÀÌ¸§(dept.dept_name)À» Á¶È¸
-
-
-
---TODO 200¹ø´ë(200 ~ 299) Á÷¿ø ID(emp.emp_id)¸¦ °¡Áø Á÷¿øµéÀÇ Á÷¿ø_ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ±Ş¿©(emp.salary), 
---     ¼Ò¼ÓºÎ¼­ÀÌ¸§(dept.dept_name), ºÎ¼­À§Ä¡(dept.loc)¸¦ Á¶È¸. Á÷¿ø_IDÀÇ ¿À¸§Â÷¼øÀ¸·Î Á¤·Ä.
+-- ì§ì›_ID(emp.emp_id), ì´ë¦„(emp.emp_name), ê¸‰ì—¬(emp.salary), ë‹´ë‹¹ì—…ë¬´ëª…(job.job_title), ì†Œì†ë¶€ì„œì´ë¦„(dept.dept_name)ì„ ì¡°íšŒ
 
 
 
---TODO ¾÷¹«(emp.job_id)°¡ 'FI_ACCOUNT'ÀÎ Á÷¿øÀÇ ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ¾÷¹«(emp.job_id), 
---     ¼Ò¼ÓºÎ¼­ÀÌ¸§(dept.dept_name), ºÎ¼­À§Ä¡(dept.loc)¸¦ Á¶È¸.  Á÷¿ø_IDÀÇ ¿À¸§Â÷¼øÀ¸·Î Á¤·Ä.
+--TODO 200ë²ˆëŒ€(200 ~ 299) ì§ì› ID(emp.emp_id)ë¥¼ ê°€ì§„ ì§ì›ë“¤ì˜ ì§ì›_ID(emp.emp_id), ì´ë¦„(emp.emp_name), ê¸‰ì—¬(emp.salary), 
+--     ì†Œì†ë¶€ì„œì´ë¦„(dept.dept_name), ë¶€ì„œìœ„ì¹˜(dept.loc)ë¥¼ ì¡°íšŒ. ì§ì›_IDì˜ ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì •ë ¬.
 
 
 
---TODO Ä¿¹Ì¼ÇºñÀ²(emp.comm_pct)ÀÌ ÀÖ´Â Á÷¿øµéÀÇ Á÷¿ø_ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ±Ş¿©(emp.salary), Ä¿¹Ì¼ÇºñÀ²(emp.comm_pct), 
---     ¼Ò¼ÓºÎ¼­ÀÌ¸§(dept.dept_name), ºÎ¼­À§Ä¡(dept.loc)¸¦ Á¶È¸. Á÷¿ø_IDÀÇ ¿À¸§Â÷¼øÀ¸·Î Á¤·Ä.
+--TODO ì—…ë¬´(emp.job_id)ê°€ 'FI_ACCOUNT'ì¸ ì§ì›ì˜ ID(emp.emp_id), ì´ë¦„(emp.emp_name), ì—…ë¬´(emp.job_id), 
+--     ì†Œì†ë¶€ì„œì´ë¦„(dept.dept_name), ë¶€ì„œìœ„ì¹˜(dept.loc)ë¥¼ ì¡°íšŒ.  ì§ì›_IDì˜ ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì •ë ¬.
+
+
+
+--TODO ì»¤ë¯¸ì…˜ë¹„ìœ¨(emp.comm_pct)ì´ ìˆëŠ” ì§ì›ë“¤ì˜ ì§ì›_ID(emp.emp_id), ì´ë¦„(emp.emp_name), ê¸‰ì—¬(emp.salary), ì»¤ë¯¸ì…˜ë¹„ìœ¨(emp.comm_pct), 
+--     ì†Œì†ë¶€ì„œì´ë¦„(dept.dept_name), ë¶€ì„œìœ„ì¹˜(dept.loc)ë¥¼ ì¡°íšŒ. ì§ì›_IDì˜ ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì •ë ¬.
 
 
 
 
---TODO 'New York'¿¡ À§Ä¡ÇÑ(dept.loc) ºÎ¼­ÀÇ ºÎ¼­_ID(dept.dept_id), ºÎ¼­ÀÌ¸§(dept.dept_name), À§Ä¡(dept.loc), 
---     ±× ºÎ¼­¿¡ ¼Ò¼ÓµÈ Á÷¿ø_ID(emp.emp_id), Á÷¿ø ÀÌ¸§(emp.emp_name), ¾÷¹«(emp.job_id)¸¦ Á¶È¸. ºÎ¼­_ID ÀÇ ¿À¸§Â÷¼øÀ¸·Î Á¤·Ä.
+--TODO 'New York'ì— ìœ„ì¹˜í•œ(dept.loc) ë¶€ì„œì˜ ë¶€ì„œ_ID(dept.dept_id), ë¶€ì„œì´ë¦„(dept.dept_name), ìœ„ì¹˜(dept.loc), 
+--     ê·¸ ë¶€ì„œì— ì†Œì†ëœ ì§ì›_ID(emp.emp_id), ì§ì› ì´ë¦„(emp.emp_name), ì—…ë¬´(emp.job_id)ë¥¼ ì¡°íšŒ. ë¶€ì„œ_ID ì˜ ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì •ë ¬.
 
 
 
---TODO Á÷¿ø_ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ¾÷¹«_ID(emp.job_id), ¾÷¹«¸í(job.job_title) ¸¦ Á¶È¸.
+--TODO ì§ì›_ID(emp.emp_id), ì´ë¦„(emp.emp_name), ì—…ë¬´_ID(emp.job_id), ì—…ë¬´ëª…(job.job_title) ë¥¼ ì¡°íšŒ.
 
 
 
              
--- TODO: Á÷¿ø ID °¡ 200 ÀÎ Á÷¿øÀÇ Á÷¿ø_ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ±Ş¿©(emp.salary), 
---       ´ã´ç¾÷¹«¸í(job.job_title), ¼Ò¼ÓºÎ¼­ÀÌ¸§(dept.dept_name)À» Á¶È¸              
+-- TODO: ì§ì› ID ê°€ 200 ì¸ ì§ì›ì˜ ì§ì›_ID(emp.emp_id), ì´ë¦„(emp.emp_name), ê¸‰ì—¬(emp.salary), 
+--       ë‹´ë‹¹ì—…ë¬´ëª…(job.job_title), ì†Œì†ë¶€ì„œì´ë¦„(dept.dept_name)ì„ ì¡°íšŒ              
 
 
 
--- TODO: 'Shipping' ºÎ¼­ÀÇ ºÎ¼­¸í(dept.dept_name), À§Ä¡(dept.loc), ¼Ò¼Ó Á÷¿øÀÇ ÀÌ¸§(emp.emp_name), ¾÷¹«¸í(job.job_title)À» Á¶È¸. 
---       Á÷¿øÀÌ¸§ ³»¸²Â÷¼øÀ¸·Î Á¤·Ä
+-- TODO: 'Shipping' ë¶€ì„œì˜ ë¶€ì„œëª…(dept.dept_name), ìœ„ì¹˜(dept.loc), ì†Œì† ì§ì›ì˜ ì´ë¦„(emp.emp_name), ì—…ë¬´ëª…(job.job_title)ì„ ì¡°íšŒ. 
+--       ì§ì›ì´ë¦„ ë‚´ë¦¼ì°¨ìˆœìœ¼ë¡œ ì •ë ¬
 
 
 
--- TODO:  'San Francisco' ¿¡ ±Ù¹«(dept.loc)ÇÏ´Â Á÷¿øÀÇ id(emp.emp_id), ÀÌ¸§(emp.emp_name), ÀÔ»çÀÏ(emp.hire_date)¸¦ Á¶È¸
---         ÀÔ»çÀÏÀº 'yyyy-mm-dd' Çü½ÄÀ¸·Î Ãâ·Â
+-- TODO:  'San Francisco' ì— ê·¼ë¬´(dept.loc)í•˜ëŠ” ì§ì›ì˜ id(emp.emp_id), ì´ë¦„(emp.emp_name), ì…ì‚¬ì¼(emp.hire_date)ë¥¼ ì¡°íšŒ
+--         ì…ì‚¬ì¼ì€ 'yyyy-mm-dd' í˜•ì‹ìœ¼ë¡œ ì¶œë ¥
 
 
 
---TODO ºÎ¼­º° ±Ş¿©(salary)ÀÇ Æò±ÕÀ» Á¶È¸. ºÎ¼­ÀÌ¸§(dept.dept_name)°ú ±Ş¿©Æò±ÕÀ» Ãâ·Â. ±Ş¿© Æò±ÕÀÌ ³ôÀº ¼ø¼­·Î Á¤·Ä.
--- ±Ş¿©´Â , ´ÜÀ§±¸ºĞÀÚ¿Í $ ¸¦ ºÙ¿© Ãâ·Â.
+--TODO ë¶€ì„œë³„ ê¸‰ì—¬(salary)ì˜ í‰ê· ì„ ì¡°íšŒ. ë¶€ì„œì´ë¦„(dept.dept_name)ê³¼ ê¸‰ì—¬í‰ê· ì„ ì¶œë ¥. ê¸‰ì—¬ í‰ê· ì´ ë†’ì€ ìˆœì„œë¡œ ì •ë ¬.
+-- ê¸‰ì—¬ëŠ” , ë‹¨ìœ„êµ¬ë¶„ìì™€ $ ë¥¼ ë¶™ì—¬ ì¶œë ¥.
 
 
 
---TODO Á÷¿øÀÇ ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ±Ş¿©(emp.salary), ±Ş¿©µî±Ş(salary_grade.grade) ¸¦ Á¶È¸. Á÷¿ø id ¿À¸§Â÷¼øÀ¸·Î Á¤·Ä
+--TODO ì§ì›ì˜ ID(emp.emp_id), ì´ë¦„(emp.emp_name), ê¸‰ì—¬(emp.salary), ê¸‰ì—¬ë“±ê¸‰(salary_grade.grade) ë¥¼ ì¡°íšŒ. ì§ì› id ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì •ë ¬
 
 
 
 
---TODO Á÷¿øÀÇ ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ¾÷¹«¸í(job.job_title), ±Ş¿©(emp.salary), 
---     ±Ş¿©µî±Ş(salary_grade.grade), ¼Ò¼ÓºÎ¼­¸í(dept.dept_name)À» Á¶È¸. µî±Ş ³»¸²Â÷¼øÀ¸·Î Á¤·Ä
+--TODO ì§ì›ì˜ ID(emp.emp_id), ì´ë¦„(emp.emp_name), ì—…ë¬´ëª…(job.job_title), ê¸‰ì—¬(emp.salary), 
+--     ê¸‰ì—¬ë“±ê¸‰(salary_grade.grade), ì†Œì†ë¶€ì„œëª…(dept.dept_name)ì„ ì¡°íšŒ. ë“±ê¸‰ ë‚´ë¦¼ì°¨ìˆœìœ¼ë¡œ ì •ë ¬
 
 
 
---TODO ºÎ¼­º° ±Ş¿©µî±ŞÀÌ(salary_grade.grade) 1ÀÎ Á÷¿øÀÖ´Â ºÎ¼­ÀÌ¸§(dept.dept_name)°ú 1µî±ŞÀÎ Á÷¿ø¼ö Á¶È¸. Á÷¿ø¼ö°¡ ¸¹Àº ºÎ¼­ ¼ø¼­´ë·Î Á¤·Ä.
-
-
-/* ****************************************************
-Self Á¶ÀÎ
-- ¹°¸®ÀûÀ¸·Î ÇÏ³ªÀÇ Å×ÀÌºíÀ» µÎ°³ÀÇ Å×ÀÌºíÃ³·³ Á¶ÀÎÇÏ´Â °Í.
-**************************************************** */
---Á÷¿øÀÇ ID(emp.emp_id), ÀÌ¸§(emp.emp_name), »ó»çÀÌ¸§(emp.emp_name)À» Á¶È¸
-
-
-
--- TODO : EMP Å×ÀÌºí¿¡¼­ Á÷¿ø ID(emp.emp_id)°¡ 110ÀÎ Á÷¿øÀÇ ±Ş¿©(salary)º¸´Ù ¸¹ÀÌ ¹Ş´Â Á÷¿øµéÀÇ id(emp.emp_id), 
--- ÀÌ¸§(emp.emp_name), ±Ş¿©(emp.salary)¸¦ Á÷¿ø ID(emp.emp_id) ¿À¸§Â÷¼øÀ¸·Î Á¶È¸.
-
+--TODO ë¶€ì„œë³„ ê¸‰ì—¬ë“±ê¸‰ì´(salary_grade.grade) 1ì¸ ì§ì›ìˆëŠ” ë¶€ì„œì´ë¦„(dept.dept_name)ê³¼ 1ë“±ê¸‰ì¸ ì§ì›ìˆ˜ ì¡°íšŒ. ì§ì›ìˆ˜ê°€ ë§ì€ ë¶€ì„œ ìˆœì„œëŒ€ë¡œ ì •ë ¬.
 
 
 /* ****************************************************
-¾Æ¿ìÅÍ Á¶ÀÎ (Outer Join)
-
--ºÒÃæºĞ Á¶ÀÎ (Á¶ÀÎ ¿¬»ê½Ã ÇÑÂÊÀÇ ÇàÀÌ ºÒÃæºĞ ÇØµµ ºÙÀÌµµ·Ï) 
- - ¼Ò½º(¿ÏÀüÇØ¾ßÇÏ´ÂÅ×ÀÌºí)°¡ ¿ŞÂÊÀÌ¸é left join, ¿À¸¥ÂÊÀÌ¸é right join ¾çÂÊÀÌ¸é full outer join
-
--ANSI ¹®¹ı
-from Å×ÀÌºía [LEFT | RIGHT | FULL] OUTER JOIN Å×ÀÌºíb ON Á¶ÀÎÁ¶°Ç
-- OUTER´Â »ı·« °¡´É.
-
--¿À¶óÅ¬ JOIN ¹®¹ı
-- FROM Àı¿¡ Á¶ÀÎÇÒ Å×ÀÌºíÀ» ³ª¿­
-- WHERE Àı¿¡ Á¶ÀÎ Á¶°ÇÀ» ÀÛ¼º
-    - Å¸°Ù Å×ÀÌºí¿¡ (+) ¸¦ ºÙÀÎ´Ù.
-    - FULL OUTER JOINÀº Áö¿øÇÏÁö ¾Ê´Â´Ù.
-- OUTER´Â »ı·« ÇÒ ¼ö ÀÖ´Ù.	
+Self ì¡°ì¸
+- ë¬¼ë¦¬ì ìœ¼ë¡œ í•˜ë‚˜ì˜ í…Œì´ë¸”ì„ ë‘ê°œì˜ í…Œì´ë¸”ì²˜ëŸ¼ ì¡°ì¸í•˜ëŠ” ê²ƒ.
 **************************************************** */
--- Á÷¿øÀÇ id(emp.emp_id), ÀÌ¸§(emp.emp_name), ±Ş¿©(emp.salary), ºÎ¼­¸í(dept.dept_name), ºÎ¼­À§Ä¡(dept.loc)¸¦ Á¶È¸. 
--- ºÎ¼­°¡ ¾ø´Â Á÷¿øÀÇ Á¤º¸µµ ³ª¿Àµµ·Ï Á¶È¸. (ºÎ¼­Á¤º¸´Â null). dept_nameÀÇ ³»¸²Â÷¼øÀ¸·Î Á¤·ÄÇÑ´Ù.
+--ì§ì›ì˜ ID(emp.emp_id), ì´ë¦„(emp.emp_name), ìƒì‚¬ì´ë¦„(emp.emp_name)ì„ ì¡°íšŒ
 
 
 
-
--- ¸ğµç Á÷¿øÀÇ id(emp.emp_id), ÀÌ¸§(emp.emp_name), ºÎ¼­_id(emp.dept_id)¸¦ Á¶È¸ÇÏ´Âµ¥
--- ºÎ¼­_id°¡ 80 ÀÎ Á÷¿øµéÀº ºÎ¼­¸í(dept.dept_name)°ú ºÎ¼­À§Ä¡(dept.loc) µµ °°ÀÌ Ãâ·ÂÇÑ´Ù. (ºÎ¼­ ID°¡ 80ÀÌ ¾Æ´Ï¸é nullÀÌ ³ª¿Àµµ·Ï)
-
+-- TODO : EMP í…Œì´ë¸”ì—ì„œ ì§ì› ID(emp.emp_id)ê°€ 110ì¸ ì§ì›ì˜ ê¸‰ì—¬(salary)ë³´ë‹¤ ë§ì´ ë°›ëŠ” ì§ì›ë“¤ì˜ id(emp.emp_id), 
+-- ì´ë¦„(emp.emp_name), ê¸‰ì—¬(emp.salary)ë¥¼ ì§ì› ID(emp.emp_id) ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì¡°íšŒ.
 
 
 
---TODO: Á÷¿ø_id(emp.emp_id)°¡ 100, 110, 120, 130, 140ÀÎ Á÷¿øÀÇ ID(emp.emp_id), ÀÌ¸§(emp.emp_name), ¾÷¹«¸í(job.job_title) À» Á¶È¸. 
--- ¾÷¹«¸íÀÌ ¾øÀ» °æ¿ì '¹Ì¹èÁ¤' À¸·Î Á¶È¸
+/* ****************************************************
+ì•„ìš°í„° ì¡°ì¸ (Outer Join)
+
+-ë¶ˆì¶©ë¶„ ì¡°ì¸ (ì¡°ì¸ ì—°ì‚°ì‹œ í•œìª½ì˜ í–‰ì´ ë¶ˆì¶©ë¶„ í•´ë„ ë¶™ì´ë„ë¡) 
+ - ì†ŒìŠ¤(ì™„ì „í•´ì•¼í•˜ëŠ”í…Œì´ë¸”)ê°€ ì™¼ìª½ì´ë©´ left join, ì˜¤ë¥¸ìª½ì´ë©´ right join ì–‘ìª½ì´ë©´ full outer join
+
+-ANSI ë¬¸ë²•
+from í…Œì´ë¸”a [LEFT | RIGHT | FULL] OUTER JOIN í…Œì´ë¸”b ON ì¡°ì¸ì¡°ê±´
+- OUTERëŠ” ìƒëµ ê°€ëŠ¥.
+
+-ì˜¤ë¼í´ JOIN ë¬¸ë²•
+- FROM ì ˆì— ì¡°ì¸í•  í…Œì´ë¸”ì„ ë‚˜ì—´
+- WHERE ì ˆì— ì¡°ì¸ ì¡°ê±´ì„ ì‘ì„±
+    - íƒ€ê²Ÿ í…Œì´ë¸”ì— (+) ë¥¼ ë¶™ì¸ë‹¤.
+    - FULL OUTER JOINì€ ì§€ì›í•˜ì§€ ì•ŠëŠ”ë‹¤.
+- OUTERëŠ” ìƒëµ í•  ìˆ˜ ìˆë‹¤.	
+**************************************************** */
+-- ì§ì›ì˜ id(emp.emp_id), ì´ë¦„(emp.emp_name), ê¸‰ì—¬(emp.salary), ë¶€ì„œëª…(dept.dept_name), ë¶€ì„œìœ„ì¹˜(dept.loc)ë¥¼ ì¡°íšŒ. 
+-- ë¶€ì„œê°€ ì—†ëŠ” ì§ì›ì˜ ì •ë³´ë„ ë‚˜ì˜¤ë„ë¡ ì¡°íšŒ. (ë¶€ì„œì •ë³´ëŠ” null). dept_nameì˜ ë‚´ë¦¼ì°¨ìˆœìœ¼ë¡œ ì •ë ¬í•œë‹¤.
+
+select e.emp_id,
+       e.emp_name,
+       e.salary,
+       d.dept_name,
+       d.loc
+from emp e left join dept d on e.dept_id = d.dept_id
+--from dept d right outer join emp e on d.dept_id = e.dept_id
+order by d.dept_name desc;
+
+--ì˜¤ë¼í´ ë¬¸ë²•
+select e.emp_id,
+       e.emp_name,
+       e.salary,
+       d.dept_name,
+       d.loc
+from emp e, dept d
+where e.dept_id = d.dept_id(+) --e: ì†ŒìŠ¤, d: íƒ€ê²Ÿ(+) //(+)ê°€ ë¹ ì§€ë©´ ì´ë„ˆì¡°ì¸ì´ë¨
+order by d.dept_name desc;
+
+-- ëª¨ë“  ì§ì›ì˜ id(emp.emp_id), ì´ë¦„(emp.emp_name), ë¶€ì„œ_id(emp.dept_id)ë¥¼ ì¡°íšŒí•˜ëŠ”ë°
+-- ë¶€ì„œ_idê°€ 80 ì¸ ì§ì›ë“¤ì€ ë¶€ì„œëª…(dept.dept_name)ê³¼ ë¶€ì„œìœ„ì¹˜(dept.loc) ë„ ê°™ì´ ì¶œë ¥í•œë‹¤. (ë¶€ì„œ IDê°€ 80ì´ ì•„ë‹ˆë©´ nullì´ ë‚˜ì˜¤ë„ë¡)
+
+select e.emp_id,
+       e.emp_name,
+       e.dept_id,
+       d.dept_name,
+       d.loc
+from emp e left join dept d on e.dept_id = d.dept_id
+and e.dept_id =80;
+
+--ì˜¤ë¼í´ ë¬¸ë²•ìœ¼ë¡œ í•  ê²½ìš° whereì ˆì— ì¡°ì¸ ì¡°ê±´ì¸ì§€ í–‰ì¡°ê±´ì¸ì§€ êµ¬ë¶„ì´ ì•ˆê°€ì„œ ì›í•˜ëŠ” ê²°ê³¼ê°€ ì¡°íšŒë˜ì§€ ì•Šì„ ìˆ˜ ìˆìŒ
+select e.emp_id,
+       e.emp_name,
+       e.dept_id,
+       d.dept_name,
+       d.loc
+from emp e, dept d
+where e.dept_id = d.dept_id(+) --join ì—°ì‚°
+and e.dept_id(+) =80; --íƒ€ê²Ÿì— ëŒ€í•œ joinì—°ì‚° -- ë”°ë¼ì„œ where joinì¡°ê±´ì—ë„ (+)ë¥¼ ë¶™ì„
+
+
+--TODO: ì§ì›_id(emp.emp_id)ê°€ 100, 110, 120, 130, 140ì¸ ì§ì›ì˜ ID(emp.emp_id), ì´ë¦„(emp.emp_name), ì—…ë¬´ëª…(job.job_title) ì„ ì¡°íšŒ. 
+-- ì—…ë¬´ëª…ì´ ì—†ì„ ê²½ìš° 'ë¯¸ë°°ì •' ìœ¼ë¡œ ì¡°íšŒ
+
+select e.emp_id,
+       e.emp_name,
+       nvl(j.job_title, 'ë¯¸ë°°ì •')
+from emp e left join job j on e.job_id = j.job_id
+where e.emp_id in (100,110,120,130,140);
+
+--ì˜¤ë¼í´ ë¬¸ë²•
+select e.emp_id,
+       e.emp_name,
+       nvl(j.job_title,'ë¯¸ë°°ì •')
+from emp e, job j
+where e.job_id = j.job_id(+)
+and e.emp_id in (100,110,120,130,140);
+
+
+--TODO: ë¶€ì„œì˜ ID(dept.dept_id), ë¶€ì„œì´ë¦„(dept.dept_name)ê³¼ ê·¸ ë¶€ì„œì— ì†í•œ ì§ì›ë“¤ì˜ ìˆ˜ë¥¼ ì¡°íšŒ. 
+--      ì§ì›ì´ ì—†ëŠ” ë¶€ì„œëŠ” 0ì´ ë‚˜ì˜¤ë„ë¡ ì¡°íšŒí•˜ê³  ì§ì›ìˆ˜ê°€ ë§ì€ ë¶€ì„œ ìˆœì„œë¡œ ì¡°íšŒ.
+
+select d.dept_id,
+       d.dept_name,
+       count(e.emp_id)
+from dept d left join emp e on d.dept_id = e.dept_id
+--from dept d, emp e
+--where d.dept_id = e.dept_id(+) --ì˜¤ë¼í´ ë¬¸ë²•
+group by d.dept_id,d.dept_name
+order by 3 desc;
+
+-- TODO: EMP í…Œì´ë¸”ì—ì„œ ë¶€ì„œ_ID(emp.dept_id)ê°€ 90 ì¸ ì§ì›ë“¤ì˜ id(emp.emp_id), ì´ë¦„(emp.emp_name), ìƒì‚¬ì´ë¦„(emp.emp_name), ì…ì‚¬ì¼(emp.hire_date)ì„ ì¡°íšŒ. 
+-- ì…ì‚¬ì¼ì€ yyyy-mm-dd í˜•ì‹ìœ¼ë¡œ ì¶œë ¥
+
+select e1.dept_id,
+       e1.emp_id "ì§ì›ID",
+       e1.emp_name ì´ë¦„,
+       e2.emp_name ìƒì‚¬ì´ë¦„,
+       to_char(e1.hire_date,'yyyy-mm-dd')
+from emp e1 left join emp e2 on e1.mgr_id = e2.emp_id
+where e1.dept_id = 90;
 
 
 
---TODO: ºÎ¼­ÀÇ ID(dept.dept_id), ºÎ¼­ÀÌ¸§(dept.dept_name)°ú ±× ºÎ¼­¿¡ ¼ÓÇÑ Á÷¿øµéÀÇ ¼ö¸¦ Á¶È¸. 
---      Á÷¿øÀÌ ¾ø´Â ºÎ¼­´Â 0ÀÌ ³ª¿Àµµ·Ï Á¶È¸ÇÏ°í Á÷¿ø¼ö°¡ ¸¹Àº ºÎ¼­ ¼ø¼­·Î Á¶È¸.
+--TODO 2003ë…„~2005ë…„ ì‚¬ì´ì— ì…ì‚¬í•œ ì§ì›ì˜ id(emp.emp_id), ì´ë¦„(emp.emp_name), ì—…ë¬´ëª…(job.job_title), ê¸‰ì—¬(emp.salary), ì…ì‚¬ì¼(emp.hire_date),
+--     ìƒì‚¬ì´ë¦„(emp.emp_name), ìƒì‚¬ì˜ì…ì‚¬ì¼(emp.hire_date), ì†Œì†ë¶€ì„œì´ë¦„(dept.dept_name), ë¶€ì„œìœ„ì¹˜(dept.loc)ë¥¼ ì¡°íšŒ.
+-- 2003ë…„ì—ì„œ 2005ë…„ ì‚¬ì´ ì…ì‚¬í•œ ì§ì›ì€ ëª¨ë‘ ë‚˜ì˜¤ë„ë¡ ì¡°íšŒí•œë‹¤. 
 
 
+select e1.emp_id,
+       e1.emp_name,
+       j.job_title ì—…ë¬´,
+       e1.salary,
+       e1.hire_date,
+       e2.emp_name ìƒì‚¬ì´ë¦„,
+       e2.hire_date ìƒì‚¬ì…ì‚¬ì¼,
+       d2.dept_name,
+       d.dept_name,
+       d.loc
+from emp e1 left join job j on e1.job_id = j.job_id
+            left join emp e2 on e1.mgr_id = e2.emp_id
+            left join dept d on e1.dept_id = d.dept_id --d: ì§ì›ì˜ ë¶€ì„œ tb
+            left join dept d2 on e2.dept_id = d2.dept_id --d2:ìƒì‚¬ì˜ ë¶€ì„œ í…Œì´ë¸”
+where extract(year from e1.hire_date) between 2003 and 2005;
 
--- TODO: EMP Å×ÀÌºí¿¡¼­ ºÎ¼­_ID(emp.dept_id)°¡ 90 ÀÎ Á÷¿øµéÀÇ id(emp.emp_id), ÀÌ¸§(emp.emp_name), »ó»çÀÌ¸§(emp.emp_name), ÀÔ»çÀÏ(emp.hire_date)À» Á¶È¸. 
--- ÀÔ»çÀÏÀº yyyy-mm-dd Çü½ÄÀ¸·Î Ãâ·Â
+select e1.emp_id,
+       e1.emp_name,
+       j.job_title ì—…ë¬´,
+       e1.salary,
+       e1.hire_date,
+       e2.emp_name ìƒì‚¬ì´ë¦„,
+       e2.hire_date ìƒì‚¬ì…ì‚¬ì¼,
+       d2.dept_name,
+       d.dept_name,
+       d.loc
+from emp e1, job j, emp e2, dept d,dept d2
+where e1.job_id = j.job_id(+)
+and e1.mgr_id = e2.emp_id(+)
+and e1.dept_id = d.dept_id(+)
+and e2.dept_id = d2.dept_id(+)
+and to_char(e1.hire_date,'yyyy')between 2003 and 2005
+order by 1;
 
 
-
-
-
---TODO 2003³â~2005³â »çÀÌ¿¡ ÀÔ»çÇÑ Á÷¿øÀÇ id(emp.emp_id), ÀÌ¸§(emp.emp_name), ¾÷¹«¸í(job.job_title), ±Ş¿©(emp.salary), ÀÔ»çÀÏ(emp.hire_date),
---     »ó»çÀÌ¸§(emp.emp_name), »ó»çÀÇÀÔ»çÀÏ(emp.hire_date), ¼Ò¼ÓºÎ¼­ÀÌ¸§(dept.dept_name), ºÎ¼­À§Ä¡(dept.loc)¸¦ Á¶È¸.
--- 2003³â¿¡¼­ 2005³â »çÀÌ ÀÔ»çÇÑ Á÷¿øÀº ¸ğµÎ ³ª¿Àµµ·Ï Á¶È¸ÇÑ´Ù. 
-
-
-
-
+-- e1.* í•˜ë©´ e1ì—ìˆëŠ” ëª¨ë“  ì •ë³´ë¥¼ ì¡°íšŒ
