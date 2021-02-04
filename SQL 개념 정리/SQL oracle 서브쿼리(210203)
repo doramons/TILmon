@@ -1,0 +1,6 @@
+# 서브쿼리(Sub Query)
+ - 쿼리 안에서 select 쿼리를 사용하는것
+ - 메인 쿼리 - 서브쿼리
+ 
+ 서브쿼리가 사용되는 구
+ - select절, from절, where절, having절
