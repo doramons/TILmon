@@ -298,14 +298,35 @@ EXISTS, NOT EXISTS 연산자 (상관(연관)쿼리와 같이 사용된다)
 
 -- 직원이 한명이상 있는 부서의 부서ID(dept.dept_id)와 이름(dept.dept_name), 위치(dept.loc)를 조회
 
+select d.dept_id,
+       d.dept_name,
+       d.loc
+from dept d
+where exists (select * from emp e where e.dept_id = d.dept_id); -- 비교할떄 첫 행부터 비교해서 조건을 만족하면 바로 true값 추출하고 다음행 비교(->전체 테이블 다 비교하는 거보다 효율적)
+
+select * from dept
+where dept_id in (select distinct dept_id from emp)
+order by 1; -- 위의 식과 결과는 똑같이 나오지만 이렇게 하면 모든 행을 다 확인하기때문에 비효율적임
 
 -- 직원이 한명도 없는 부서의 부서ID(dept.dept_id)와 이름(dept.dept_name), 위치(dept.loc)를 조회
+select d.dept_id,
+       d.dept_name,
+       d.loc
+from dept d
+where not exists (select * from emp e where e.dept_id = d.dept_id);
 
 
 -- 부서(dept)에서 연봉(emp.salary)이 13000이상인 한명이라도 있는 부서의 부서ID(dept.dept_id)와 이름(dept.dept_name), 위치(dept.loc)를 조회
 
+select d.dept_id,
+       d.dept_name,
+       d.loc
+from dept d
+where exists (select * from emp e where d.dept_id = e.dept_id  and salary>=13000);
 
-
+select *
+from emp
+where salary >= 13000;
 
 /* ******************************
 주문 관련 테이블들 이용.
@@ -313,13 +334,24 @@ EXISTS, NOT EXISTS 연산자 (상관(연관)쿼리와 같이 사용된다)
 
 --TODO: 고객(customers) 중 주문(orders)을 한번 이상 한 고객들을 조회.
 
+select *
+from customers c
+where exists (select * from orders o where c.cust_id= o.cust_id);
 
 --TODO: 고객(customers) 중 주문(orders)을 한번도 하지 않은 고객들을 조회.
 
+select *
+from customers c
+where not exists (select * from orders o where c.cust_id= o.cust_id);
 
 --TODO: 제품(products) 중 한번이상 주문된 제품 정보 조회
 
+select *
+from products p
+where exists (select * from order_items oi where oi.product_id = p.product_id);
 
 --TODO: 제품(products)중 주문이 한번도 안된 제품 정보 조회
 
-
+select *
+from products p
+where not exists (select * from order_items oi where oi.product_id = p.product_id);
