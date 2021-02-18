@@ -223,8 +223,8 @@ ex) import numpy as np
 np.random.normal() # 표준 정규분포(평균:0 , 표준편차:1)를 따르는 난수를 반환. -2 +2 사이의 값들(2*표준편차)이 많이 나오게된다
 
 np.random.normal(loc= 10,sclae = 5) 
-# 평균 10 표준편차 5인 정규분포를 따르는 난수를 반환
-# 10-2*5 ~ 10+2*5 범위의 값들이 많이 나옴
+=> 평균 10 표준편차 5인 정규분포를 따르는 난수를 반환
+=> 10-2*5 ~ 10+2*5 범위의 값들이 많이 나옴
 
 
 
@@ -232,7 +232,7 @@ import g.pyplot as plt
 v = np.random.normal(50,30, size=5000)
 plt.figure(figsize=(7,7))
 plt.hist(v, bins=30) # 범위를 지정하여 범위마다 있는 값들을 묶어서 그린 그래프 (히스토그램)
-# bins : 몇개씩 묶을지 지정
+-> bins : 몇개씩 묶을지 지정
 plt.show()
 
 ### np.random.randint(low, high=None, size=None, dtype='l')
