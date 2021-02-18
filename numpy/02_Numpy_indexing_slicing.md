@@ -100,3 +100,27 @@
                ex) [0,1],[2,3] 이 반환 되었을 경우 (0,1),(2,3)인덱스가 아니라 (0,2),(1,3) 인덱스가 Truedladmf dmlalgksek
                - 보통 Vector에 적용한다
                
+      #####기타
+          
+          **np.any(boolean배열)
+            - 배열에 True가 하나라도 있으면 True를 반환
+           
+          ** np.all(boolean 배열)
+            - 배열의 모든 원소가 True면 True 반환
+
+          ** np.sum() : 배열 내 원소의 총 합계
+            - np.sum(a) => a의 모든 원소들의 합
+            - sum(boolean배열) 일 경우 True:1, False:0 으로 처리하여 계산하기 때문에 True인 것의 개수를 구할 때 사용
+      
+      #####정렬
+            
+            ** np.sort(arr)/ndarray.sort() : arr을 정렬
+                - np.sort(배열) : 배열을 정렬한 결과를 가진 새로운 배열을 반환(카피본) 원본은 안바뀜
+                 ex) x = np.sort(arr) #카피본이 x로 들어감
+                - 배열.sort() : 원본 배열을 정렬
+            ** np.argsort(arr) : 정렬 후 index를 반환
+            -> 오름차순 정렬만 지원, 내림차순을 할 경우 정렬 후 reverse해야한다
+              ex) a= np.array([3,1,5,2])
+                  b = np.sort(a)[::-1] => 내림차순 정렬
+            
+         
