@@ -38,5 +38,7 @@
    ###### 단항 범용함수(unary ufunc)
         - 매개변수로 한개의 배열을 받는다
         - 한 배열내의 원소별로 연산
+  ![다운로드](https://user-images.githubusercontent.com/76146752/108631036-5b01b400-74ab-11eb-8d0c-a8918330e91e.png)
+
         
 
