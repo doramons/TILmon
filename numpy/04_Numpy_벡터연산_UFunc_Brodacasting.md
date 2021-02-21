@@ -17,3 +17,4 @@
     - 조건
         - 벡터의 차원(원소의 개수)가 같아야한다
         
+![이미지](https://theorydb.github.io/assets/img/think/2019-06-25-think-future-ai-1.png "인공지능")
