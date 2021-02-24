@@ -61,3 +61,7 @@
         - encoding
             - 파일 인코딩
             - 생략시 운영체제 기본 encoding방식
+
+![다운로드 (5)](https://user-images.githubusercontent.com/76146752/109014423-76f99580-76f7-11eb-96cb-7e57b86d6d4c.png)
+![다운로드 (6)](https://user-images.githubusercontent.com/76146752/109014425-782ac280-76f7-11eb-98ab-12da07dcf8f1.png)
+
