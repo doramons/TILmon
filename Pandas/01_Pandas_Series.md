@@ -13,7 +13,7 @@
         - 아나콘다에는 미리 pandas가 install되어 제공된다
         
    #### Series
-    ##### Series 개요
+   ##### Series 개요
         - 1차원 자료 구조
         - DataFrame(표)의 한 행이나 한 열을 표현한다
         - 각 원소는 index로 접근할 수 있다
@@ -68,3 +68,27 @@
       - **Slicing의 결과는 원본의 참조(View)를 반환**
           - slicing한 결과를 변경시 원본도 같이 바뀐다
           - series.copy() : Series를 복사한 새로운 객체 반환
+
+   ##### Indexing, Slicing을 이용한 값 변경
+      - shallow copy와 deep copy
+          - deep copy(깊은 복사)
+            - 원본의 카피본을 반환하여 값 변경시 원본이 변경되지 않는다
+            - 파이썬 리스트는 slicing시 deep copy
+            - indexing은 deep copy
+
+          - shallow copy(얕은 복사)
+            - 원본을 반환하여 값 변경시 원본에 영향을 준다
+            - Series, DataFrame, 넘파이 배열(ndarray)은 slcing 조회시 shallow copy
+
+          - copy() 메소드
+            - Series, DataFrame, ndarray를 복사하여 반환한다
+
+   ##### Boolean 인덱싱
+      - Series의 indexing 연산자에 boolean리스트를 넣으면 True 인 index의 값들만 조회한다
+          - Boolean 연산자들을 이용해 원하는 조건의 값들을 조회할 수 있다
+          - 다중조건인 경우 반드시 ()로 조건을 묶어야 한다
+          - 파이썬과 다르게 and, or 예약어는 사용할 수 없다
+          - &,|,~으로 사용
+
+  ##### 주요메소드
+    
