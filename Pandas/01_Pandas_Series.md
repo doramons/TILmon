@@ -92,3 +92,6 @@
 
   ##### 주요메소드
     
+![다운로드 (3)](https://user-images.githubusercontent.com/76146752/108952317-9c14e680-76ac-11eb-8c15-ddab91bd7781.png)
+![다운로드 (4)](https://user-images.githubusercontent.com/76146752/108952320-9d461380-76ac-11eb-95fe-c67236c3285c.png)
+
