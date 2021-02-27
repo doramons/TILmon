@@ -114,34 +114,33 @@
 
  ###### 행/열 삭제
    - DataFrame객체.drop(columns, index, inplace=False) 또는 DataFame객체.drop(labels=삭제할 컬럼/index이름, axis = 삭제할 축)
-    ex) df.drop(labels=['korean'], axis=1)
-        df.drop(labels=['korean'], axis=1)
+     ex) df.drop(labels=['korean'], axis=1)
+         df.drop(labels=['korean'], axis=1)
    - columns : 삭제할 열이름 또는 열이름 리스트
-    ex) df.drop(columns= 'korean') , df.drop(columns = ['korean','English']
+      ex) df.drop(columns= 'korean') , df.drop(columns = ['korean','English']
    - index : 삭제할 index명 또는 index리스트
-    ex) df.drop(index=['id-5','id-4'])
-        df.drop(labels=['id-1','id-4'],axis=0)
-    **-행, 열 제거할 때 순번은 사용할 수 없음(이름으로만 제거가능) or reset_index로 index를 순번으로 바꾼뒤 제거** 
+      ex) df.drop(index=['id-5','id-4'])
+          df.drop(labels=['id-1','id-4'],axis=0)
+   **-행, 열 제거할 때 순번은 사용할 수 없음(이름으로만 제거가능) or reset_index로 index를 순번으로 바꾼뒤 제거** 
    - inplace: 원본을 변경할지 여부(boolean) 
 
- ##### 행별, 열별 값 조회
+##### 행별, 열별 값 조회
   ###### 열(컬럼) 조회 - Series로 리턴
-  
-    - df['컬럼명']
-      ex) df['korean']
-    - df.컬럼명
-      ex) df.korean
+   - df['컬럼명']
+       ex) df['korean']
+   - df.컬럼명
+       ex) df.korean
     - 팬시 indexing
       - 여러개의 컬럼을 조회할 경우 컬럼명들을 담은 리스트/튜플로 조회
-     **주의
+    - 주의
       - df[컬럼index]는 조회안됨
       - df[0:3] 으로 조회하면 행이 슬라이싱되어 나옴(0번~2번행)
       - 만약 indexing이나 slicing을 이용해 컬럼값 조회하려면 columns 속성을 이용한다
-        ex) df[df.columns[:3]]
-      - 조회결과
-        - 한 개 컬럼조회: Series로 반환(행명을 index명으로 조회값을 값으로 가지는 Series)
-        - 여러개 컬럼조회: DataFrame으로 반환
-          ex) df[['korean','math','music']] #fancy indexing을 통해 여러개 조회
+         ex) df[df.columns[:3]]
+    - 조회결과
+       - 한 개 컬럼조회: Series로 반환(행명을 index명으로 조회값을 값으로 가지는 Series)
+       - 여러개 컬럼조회: DataFrame으로 반환
+          ex) df[['korean','math','music']] -> Fancy indexing을 통해 여러개 조회
       
 ##### 다양한 열선택 기능을 제공하는 메소드들
    
@@ -149,9 +148,56 @@
      - 전달한 데이터 타입의 열들을 조회
      - include: 조회할 열 데이터 타입
      - exclude: 제외하고 조회할 열 데이터 타입
+     ex) df.select_dtypes(include=['int64','bool'])
+         df.select_dtypes(exclude=['int64'])
    - filter(items=[], like='', regex='')
      - 매개변수에 전달하는 열의 이름에 따라 조회
         - 각 매개변수중 하나만 사용할 수 있다
-        - item = []
+        - item = [ ]
            - 리스트와 일치하는 열들 조회
            - 이름이 일치하지 않아도 Error발생 안함
+           ex) df.filter(items=['korean','eng']) -> 있는건 조회하고 없는건 무시
+        - like = ""
+           - 전달한 문자열이 들어간 열들 조회
+           - 부분일치 개념
+           ex) df.filter(like='ko') -> 열이름에 ko가 포함된 열들 조회
+        - regex = ""
+           - 정규표현식을 이용해 열의 이름을 패턴으로 조회
+
+ ##### 행조회
+   - loc : index이름으로 조회
+   - iloc : 행 순번으로 조회
+ ###### loc : 행이름으로 조회
+   - df.loc[index이름]
+     - 한 행 조회
+     - 조회할 행 index 이름(레이블) 전달
+     - 이름이 문자열이면 " " 문자열표기법으로 전달 정수이며 정수표기법으로 전달한다
+   - df.loc[index이름리스트]
+     - 여러행 조회
+     - 팬시 인덱스
+     - 조회할 행 index 이름(레이블) 리스트 전달
+      ex) df.loc['id-1']
+          df.loc[['id-1','id-4']]
+   - df.loc[start index 이름 : end index이름:step]
+     - 슬라이싱 지원
+     - end index 이름의 행까지 포함한다
+      ex) df.loc['id-5':'id-4':2] -> id-5부터 id-4까지 행중 두칸씩 띄워서
+   - df.loc[index이름 , 컬럼이름]
+     - 행과 열 조회
+     - 둘 다 이름으로 지정해야함
+      ex) df.loc['id-5','english'] -> id-5의 영어점수
+          df.loc['id-5':'id-2, 'total':'pass'] -> id-5부터 id-2까지 행의 total~pass컬럼 조회
+          
+ ##### iloc : 행 순번으로 조회
+    - df.iloc[행번호]
+      - 한 행 조회
+      - 조회할 행 번호 전달
+    - df.iloc[행번호 리스트]
+      - 여러 행 조회
+      - 조회할 행 번호 리스트 전달
+    - df.iloc[start 행번호: stop행번호: step]
+      - 슬라이싱 지원
+      - stop 행번호 포함 안함(stop 행번호 -1까지 조회)
+    - df.iloc[행번호, 열번호]
+      - 행과 열 조회
+      - 행열 모두 순번으로 지정
