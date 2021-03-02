@@ -206,4 +206,12 @@
     - 행, 열에 조건식을 이용해 원하는 조건의 행이나 열을 조회
     - 다중 조건의 경우 ()로 묶는다
     - 논리연산자
-    - 
+   ![다운로드 (7)](https://user-images.githubusercontent.com/76146752/109622930-0089e700-7b80-11eb-97c7-254ef519a554.png)
+    
+    - DataFrame객체[조건], DataFrame객체.loc[조건]
+      - 조건이 True인 행만 조회
+      - 열까지 선택시
+         - DataFrame객체[조건][열]
+         - Dataframe.loc[조건,열]
+    - iloc[]은 boolean 인덱싱을 지원하지 않음
+    ex) movie_df[movie_df['duration']>=150][['movie_title','dutration','color']]
