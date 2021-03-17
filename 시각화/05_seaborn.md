@@ -1,7 +1,7 @@
 #### Seaborn
    - matplotlib을 기반으로 다양한 테마와 그래프를 제공하는 파이썬 시각화 패키지
    - http://seaborn.pydata.org/
-    - 공식 사이트의 [gallary] (http://seaborn.pydata.org/examples/index.html)에 제공하는 다양한 그래프와 예제를 확인 할 수 있다.
+    - 공식 사이트의 [gallary] (http://seaborn.pydata.org/examples/index.html )에 제공하는 다양한 그래프와 예제를 확인 할 수 있다.
     - 설치: 아나콘다에 포함되어있음
         ```
           pip install seaborn
@@ -172,9 +172,60 @@
 ##### jointplot()
    - scatter plot과 각 변수의 히스토그램을 같이 그린다
    - pandas DataFrame만 사용할 수 있다
+   - DataFrame
+   - 
+     ``` python
+         sns.jointplot(x='total_bill', y='tip', data=tips)
+         plt.show()
+     ```
+ ![image](https://user-images.githubusercontent.com/76146752/111396470-7fdff480-8702-11eb-9949-2e8926b25500.png)
+ 
+##### paireplot
+   - 다변수(다차원) 데이터들 간의 산점도를 보여준다
+   - 데이터프레임을 인수로 받아 그래드 형태로 각 변수간의 산점도를 그림
+   - 같은 변수가 만나는 대각선 영역에는 해당 데이터의 히스토그램을 그린다
+   - 
+       ``` python
+           sns.pairplot(tips)
+           #문자열은 다 빼고 숫자형데이터만 넣음
+      ```
+ ![image](https://user-images.githubusercontent.com/76146752/111396666-ebc25d00-8702-11eb-9022-f8f589f1cbbb.png)
+ 
+##### heatmap()
+   - 값들에 비례해서 색깔을 다르게 해 2차원 자료로 시각화
+   - 
+     ``` python
+         tips.corr()
+     ```
+     ``` python
+         plt.imshow(tips.corr(), cmap='Blues')
+         plt.colorbar()
+     ```
+     ![image](https://user-images.githubusercontent.com/76146752/111396857-4b206d00-8703-11eb-8822-6cf5cb20f855.png)
+
+     ``` python
+         sns.heatmap(tips.corr(),annot=True,cmap='Blues')
+         plt.show()
+     ```
+   ![image](https://user-images.githubusercontent.com/76146752/111396919-68edd200-8703-11eb-8867-c6d25bd4daf1.png)
    
-   
-   
+  ##### lineplot
+   - 선그래프
+   - 시간의 흐름에 따른 값의 변화를 보여주는데 유용하다.(시계열 데이터)
+   - 
+          ``` python
+              index = pd.date_range('2021/1/1', freq='D', periods=10)
+              value = np.random.randint(1,100, size=(10,3))
+              df = pd.DataFrame(value, index=index, columns= list('ABC'))
+              df.head(3)
+          ```
+          ``` python
+              plt.figure(figsize=(15,10))
+              sns.lineplot(x=df.index, y="A", data=df)
+              plt.show()
+          ```
+  ![image](https://user-images.githubusercontent.com/76146752/111397782-76a45700-8705-11eb-9516-ff1688f37c63.png)
+
    
    
    
