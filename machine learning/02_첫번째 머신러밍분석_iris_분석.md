@@ -106,32 +106,55 @@
    - stratify = y
 
   ##### scikit-learn의 train_test_split() 함수 이용 iris 데이터셋 분할
+    
     -
-     ``` python
-         from sklearn.model_selection import train_test_split
-         X_train, X_test, y_train,y_test = train_test_split(iris['data'], iris['target'],
-                                                            test_size = 0.2,
-                                                            stratify = iris['target'])
-     ```
+       ``` python
+           from sklearn.model_selection import train_test_split
+           X_train, X_test, y_train,y_test = train_test_split(iris['data'], iris['target'],
+                                                              test_size = 0.2,
+                                                              stratify = iris['target'])
+       ```
     
   ##### 모델생성
-    - 
-      ``` python
-          tree = DecisionTreeClassifier()
-      ```
+  
+   - 
+        ``` python
+            tree = DecisionTreeClassifier()
+        ```
       
   ##### 모델학습
-    -
+   -
       ``` python
-          tree.fit(X_train,y_train)
-          pred_train = tree.predict(X_train)
-          from sklearn.metrics import accuracy_score #정확도 검증하는 함수
-          acc_train_score = accuracy_score(y_train, pred_train) #(정답, 예측결과)
-          print("Train set 정확도:",acc_train_score)
+           tree.fit(X_train,y_train)
+           pred_train = tree.predict(X_train)
+           from sklearn.metrics import accuracy_score #정확도 검증하는 함수
+           acc_train_score = accuracy_score(y_train, pred_train) #(정답, 예측결과)
+           print("Train set 정확도:",acc_train_score)
       ```
-    
-    
-    
+  
+ ##### 평가
+  - 머신러닝 평가지표 함수들은 sklearn.metrics 모듈에 있다
+  - accuracy(정확도)
+     - 전체 데이터셋 중 맞춘 개수의 비율
+  - 
+    ``` python
+        pred_test = tree.predict(X_test)
+        from sklearn.metrics import accuracy_score
+        
+        acc_test_score = accuracy_score(y_test, pred_test)
+        
+        print('Test set 정확도:', acc_test_score)
+        
+   - 혼동행렬 (Confusion Matrix)
+      - 예측한 것이 실제 무엇이었는지를 표로 구성한 평가 지표
+      - 분류의 평가 지표로 사용된다
+      - axis= 0 실제, axis=1 :예측
+      - 
+       ``` python
+           from sklearn.metrics import confusion_matrix
+           cm_train = confusion_matrix(y_train, pred_train)
+           cm_test = confusion_matrix(y_test, pred_test)
+       ```
     
     
     
