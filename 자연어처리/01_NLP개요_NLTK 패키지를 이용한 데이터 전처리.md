@@ -362,22 +362,171 @@
       ```
       
 ### 분석을 위한 클래스들
-  ####
- 
-      
+  #### Text클래스
+   - 문서 분석에 유용한 여러 메소드 제공
+   - **토큰 리스트**을 입력해 객체생성 후 제공되는 메소드를 이용해 분석한다
+   
+   - ### 생성
+      - Text(토큰리스트, [name=이름])
+   - ### 주요메소드  
+      - text.count(단어)
+           - 매개변수로 전달한 언어의 빈도수
+      - text.plot(N)
+          - 빈도수 상위 N개 단어를 선그래프로 시각화
+      - text.dispersion_plot(단어리스트)
+          - 매개변수로 전달한 단어들이 전체 말뭉치의 어느 부분에 나오는지 시각화
+
+      - 
+        ``` python
+            news_words = [word for word_list in news_tokens for word in word_list]
+            news_words2 = []
+            for word_list in news_tokens:
+              news_words2 += word_list
+              
+            from nltk import Text
+            import matplotlib.pyplot as plt
+            
+            # Text객체 생성
+            text = Text(news_words, name='손흥민뉴스')
+            
+            # text.count(단어) : 단어의 빈도수 조회
+            news_text.count('parent'), news_text.count('son')
+            
+            # 빈도수 상위 단어들에 대한 선그래프
+            plt.figure(figsize=(10,7))
+            text.plot(20)
+            plt.show()
+            
+            # 말뭉치 시각화
+            plt.figure(figsize=(10,7))
+            
+            news_text.dispersion_plot(['son','korean','say'])
+            
+            plt.show()
+        ```
+  ![image](https://user-images.githubusercontent.com/76146752/114565914-b2065700-9cac-11eb-8f1c-9af9453c85d8.png)
+  ![image](https://user-images.githubusercontent.com/76146752/114565927-b599de00-9cac-11eb-847a-679d3ac49de3.png)
+
+#### FreqDist
+  - document에서 사용된 토큰(단어)의 사용빈도 데이터를 가지는 클래스
+      - 토큰(단어)를 key, 개수를 value로 가지는 딕셔너리 형태
+  - 생성
+      - Text 객체의 vocab() 메소드로 조회한ㄷ
+      - 생성자(Initializer)에 토큰 List를 직접 넣어 생성가능
+  - 주요메소드
+      - B() : 출연한 고유 단어의 개수
+      - N() : 총 단어수
+      - get(단어) 또는 FreqDist['단어'] : 특정 단어의 출연 빈도수
+      - freq(단어) : 총 단어수 대비 특정단어의 출연비율
+      - most_common() : 빈도수 순서로 정렬하여 리스트로 반환
+
+     -      
+       ``` python
+           # FreqDist 객체 생성
+           freq = news_text.vocab()
+
+           from nltk import FreqDist
+           freq2 = FreqDist(news_words)
+
+           "총 단어수: {}, 고유단어개수: {}".format(freq.N(), freq.B())
+
+           "단어 london의 빈도수: {},{},{}".format(freq.get('london'), freq['london'], news_text.count('london'))
+
+           "단어 london의 출연비율: {},{}".format(freq.get('london')/freq.N(), freq.freq('london'))
+
+           # 단어의 빈도수를 내림차순으로 정렬해서 반환
+           freq.most_common()
+       ```
+
+#### wordcloud
+     - 
+       ``` python
+           !pip install wordcloud
+           
+           # 한글처리를 위해서는 한글을 지원하는 폰트의 경로를 지정해야한다
+           # 폰트경로조회
+           import matplotlib.font_manager as fm
+           
+           for f in fm.fontManager.ttflist:
+              print(f.name, f.fname)
+              
+           [(f.name, f.fname) for f in fm.fontManger.ttflist if 'malgun' in f.name.lower()]
+           
+           font_path = 'C:\\Windows\\Fonts\\malgun.ttf'
+           
+           from wordcloud import WordCloud
+           # 설정
+           wc = WordCloud(font_path=font_path,
+                          max_words = 100, # 최대 나오는 단어의 개수
+                          prefer_horizontal = 0.7, # 가로쓰기 비율
+                          relative_scaling = 0.5, # 0~1 사이의 실수. 1에 가까울수록 빈도수가 많은 단어와 적은 단어의 크기 차이를 크게한다
+                          min_font_size = 1,
+                          max_font_size = 50, # 가장 작은 폰트의 크기, 가장 큰 폰트의 크기 지정
+                          background_color = 'white'
+                          )
+           # WordCloud 객체에 데이터 넣기
+           word_cloud = wc.generate_from_frequencies(freq) # 딕셔너리: {단어:빈도수, 단어:빈도수,....}
+           
+           # 파일로 저장
+           word_cloud.to_file('word_cloud.png')
+           
+           plt.figure(figsize=(15,15))
+           plt.imshow(word_cloud)
+           plt.axis('off')
+           plt.show()
+       ```
+   ![image](https://user-images.githubusercontent.com/76146752/114570706-04e20d80-9cb1-11eb-82ea-9bb5163e35a6.png)
+
+#### scikit-learn의 CounterVectorizer를 이용해 TDM 만들기
+  
+  - TDM/DTM
+      - Term-Document-Matrix
+      - 문서안에서 문서를 구성하는 단어들이 몇번 나왔는지를 표현하는 행렬
+  - TDM 행렬 반환
+      - 행: 문서
+      - 컬럼: 고유단어
+      - value: 개수
+  - 학습: fit(raw document)
+      - raw document - 문장을 원소로 가지는 1차원 배열형태 문서
+      - 전체 문장들(corpus)에서 고유단어들을 찾아낸뒤 index를 붙인다
+  - 변환: transform(raw document)
+      - 문장별(원소) 단어 count
+  - CountVectorizer 주요 속성, 메소드
+      - cv.vocabulary_
+          - 단어-index반환(딕셔너리)
+      - get_feature_names()
+          - index순서대로 단어들 반환
+  - 
+    ``` python
+        docs = [
+            "This is the first document. I write this document", # 1번문서
+            "I like apple. I read document" # 2번 문서
+        ]
+        from sklearn.feature_extraction.text import CountVectorizer
+        cv = CountVectorizer()
         
+        cv.fit(docs)
         
+        cv.vocabulary_
         
+        dtm = cv.transform(docs)
+        dtm.toarray()
         
+        cv.get_feature_names()
         
+        import pandas as pd
+        pd.DataFrame(dtm.toarray(), columns = cv.get_feature_names())
         
+        import pandas as pd
         
+        df = pd.DataFrame(freq.most_common(), columns=['단어','빈도수/문서1'])
+        df.head()
         
+        tdm = df.set_index('단어')
         
-        
-        
-        
-        
+        dtm = tdm.T
+    ```
+            
         
         
         
