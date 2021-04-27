@@ -43,6 +43,11 @@
   - Output: cat or dog (binary classification)
   - ImageDataGenerator를 이용해 파일시스템에 저장된 이미지데이터셋을 학습시킨다
 
+## Using data augmentation
+  - 학습 이미지의 수가 적어서 overfitting이 발생할 가능성을 줄이기 위해 기존 훈련 데이터로부터 그럴듯하게 이미지 변환을 통해서 이미지(데이터)를 늘리는 작업을 Image augmentation 이라고 한다
+  - train_set에만 적용, validation, test set 에는 적용하지 않는다 (rescaling만 한다)
+
+
 ``` python
     import tensorflow as tf
     from tensorflow import keras
@@ -194,8 +199,136 @@
                  validation_steps = len(validation_iterator))
                  
       model2.evaluate(test_iterator)
+```
+## DataFrame 이용
+  - flow_from_dataframe()사용
+      - 파일경로와 label을 DataFrame으로 저장하고 그것을 이용해 데이터셋을 읽어온다
 
+``` python
+    import gdown
+     
+    url = 'https://drive.google.com/uc?id=17ejPJw42TgTv0jCPMMIVTHwF57XYE2kb'
+    fname = 'cats_and_dogs_union.zip'
+    gdown.download(url,fname, quiet=True)
+    
+    !mkdir data #data라는 디렉토리 생성
+    
+    !unzip -q ./cats_and_dogs_union.zip -d ./data/cats_and_dogs # cats_and_dogs_union.zip이라는 압축파일을 data의 cats_and_dogs 폴더에 푼다
+```
 
+## DataFrame 생성
+  - path, label컬럼
 
-
-
+``` python
+    # 파일 경로 다루기 -glob
+    from glob import glob
+    
+    # ** 모든 하위경로, *.jpg(확장자가 jpg인 모든 파일)
+    
+    path_list = glob('/content/data/cats_and_dogs/**/*.jpg') # 지정한 파일들의 absolut path(절대 경로)를 문자열로 반환(리스트에 담아서)
+    
+    import os
+    
+    f = '/content/data/cats_and_dogs/dogs/dogs.1999.jpg'
+    # basename(경로) : 경로에서 파일명만 추출
+    
+    print(os.path.basename(f))
+    
+    print(os.path.dirname(f)) # dirname(경로) :경로에서 디렉토리 부분만 추출
+    
+    print(os.path.dirname(f).split(r'/')[4]) # label추출
+    
+    label_list = [os.path.dirname(path).split(r'/')[4] for path in path_list]
+    
+    import pandas as pd
+    
+    d = {
+      "path":path_list,
+      "label": label_list
+    }
+    
+    data_df = pd.DataFrame(d) # path와 label로 이루어진 dataframe생성
+    
+    # cats, dogs DataFrame으로 분리
+    cats_df = data_df[data_df['label']=='cats']
+    dogs_df = data_df[data_df['label']=='dogs']
+    
+    split_idx = int(dogs_df.shape[0]*0.8)
+    
+    train_df = pd.concat([dogs_df[:split_idx],cats_df[:split_idx]],axis=0)
+    
+    test_df = pd.concat([dogs_df[split_idx:],cats_df[split_idx:]],axis=0)
+    
+    test_df['label'].value_counts()
+    
+    from tensorflow.keras.preprocessing.image import ImageDataGenerator
+    
+    train_datagen = ImageDataGenerator(rescale=1./255,
+                                       rotation_range = 40,
+                                       width_shift_range =0.1,
+                                       height_shift_range = 0.1,
+                                       zoom_range = 0.2,
+                                       horizontal_flip = True,
+                                       brightness_range = (0.7,1.3),
+                                       fill_mode ='constant')
+                                       
+                                       
+    # validation, test 용
+    test_datagen = ImageDataGenerator(rescale=1./255)
+    
+    train_iterator = train_datagen.flow_from_dataframe(dataframe = train_df,
+                                                       x_col = 'path', #이미지 경로를 가진 컬럼명
+                                                       y_col = 'label', # label 컬럼명
+                                                       target_size = (IMAGE_SIZE,IMAGE_SIZE),
+                                                       class_mode = 'binary',
+                                                       batch_size = N_BATCHS)
+    test_iterator = test_datagen.flow_from_dataframe(dataframe = test_df,
+                                                     x_col = 'path',
+                                                     y_col = 'label',
+                                                     target_size = (IMAGE_SIZE,IMAGE_SIZE),
+                                                     class_mode = 'binary',
+                                                     batch_size = N_BATCHS)
+    
+    train_iterator.class_indices #내부적으로 라벨인코딩 처리 해줌
+    
+    model = create_model()
+    model.compile(optimizer=keras.optimizers.Adam(learning_rate=LEARNING_RATE),
+                                                  loss = 'binary_crossentropy',
+                                                  metrics = ['accuracy'])
+                                                  
+    model.fit(train_iterator,
+              epochs = N_EPOCHS,
+              steps_per_epoch = len(train_iterator),
+              validation_data = test_iterator,
+              validation_steps = len(test_iterator))
+    
+    from tensorflow.keras.preprocessing.image import load_img, img_to_array
+    
+    #sample이미지로 확인해보기
+    def predict_cat_dog(path):
+      img = load_img(path, target_size = (IMAGE_SIZE,IMAGE_SIZE))
+      
+      # image -> ndarray
+      sample = img_to_array(img)[np.newaxis,...]
+      
+      #scaling
+      sample = sample/255
+      pred = model.predict(sample) #확률
+      pred = pred[0,0]
+      
+      pred_class = np.where(pred<0.5,0.1)
+      pred_class_name = class_name[pred_class]
+      
+      return pred, pred_class, pred_class_name
+      
+  ```
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
