@@ -153,7 +153,113 @@
       - data augmentation 방법을 사용할 수 있음
 
 ## 빠른 특성 추출 방식
-  
+  - `conv_base`의 predict 메소드로 입력 이미지의 feature를 추출
+
+``` python
+    # 하이퍼파라미터
+    LEARNING_RATE = 0.001
+    N_EPOCHS = 30
+    N_BATCHS = 100
+    
+    import tensorflow as tf
+    from tensorflow import keras
+    from tensorflow.keras import layers
+    from tensorflow.keras.applications import VGG16, ResNet50V2
+    from tensorflow.keras.preprocessing.image import ImageDataGenerator
+    
+    import numpy as np
+    
+    np.random.seed(1)
+    tf.random.set_seed(1)
+    
+    def extract_featuremap(image_directory, sample_counts):
+        """
+        매개변수로 받은 디렉토리의 이미지들을 Conv_base 모델을 통과 시켜서 Feature map들을 추출하여 반환하는 함수
+        [매개변수]
+            image_directory : 이미지 데이터들이 있는 디렉토리
+            sample_counts : 특성을 추출할 이미지 개수
+        [반환값]
+            튜플: (featuremap들, label)
+        """
+        conv_base = VGG16(weights = 'imagenet', include_top=False, input_shape=(150,150,3)
+        
+        # 결과를 당을 ndarray
+        return_features = np.zeros(shape=(sample_counts, 4,4,512)) # Feature 저장 conv_base의 마지막 layer의 output의 shape에 맞춘다
+        return_labels = np.zeros(shape=(sample_counts,)) # label들 저장
+        
+        datagen = ImageDataGenerator(rescale=1./255) # augmentation을 줄때는 train, test 따로 받아야함(train용 함수, test용 따로 만들어야함)
+        iterator = datagen.flow_from_directory(image_directory,
+                                               target_size = (150,150),
+                                               batch_size = N_BATCHS,
+                                               class_mode = 'binary')
+                                               
+
+        i = 0 # 반복횟수를 저장할 변수
+        for input_batch, label_batch in iterator: #(image, label) * batch크기(100)
+            # input_batch를 conv_base넣어서 feature map을 추출. predict() - 모델의 레이어들을 통과해서 나온 출력결과를 반환
+            
+            fm = conv_base.predict(input_batch)
+            
+            return_features[i*N_BATCHS: (i+1)*N_BATCHS] = fm
+            return_labels[i*N_BATCHS:(i+1)*N_BATCHS] = label_batch
+            
+            i+=1
+            
+            if i*N_BATCHS >= sample_counts: #결과를 저장할 배열의 시작 index가 sample_counts보다 크면 반복문을 멈추겠다
+                break
+           
+        return return_features, return_labels
+        
+    train_dir = '/content/data/cats_and_dogs_small/train'
+    validation_dir = '/content/data/cats_and_dogs_small/validation'
+    test_dir = '/content/data/cats_and_dogs_small/test'
+    
+    # Featuremap 추출
+    train_features, train_labels = extract_featuremap(train_dir,2000)
+    validation_featre, validation_labels = extract_featuremap(validation_dir,1000)
+    test_features, test_labels = extract_featuremap(test_dir,1000)
+    
+    def create_model():
+        # 분류기 모델만 생성
+        model = keras.Sequential()
+        model.add(layers.Input((4,4,512))
+        model.add(layers.GlobalAveragePooling2D())
+        
+        model.add(layers.Dense(256, activation='relu'))
+        model.add(layers.Dense(1, activation='sigmoid'))
+        
+        return model
+    model = create_model()
+    model.compile(optimizer=keras.optimizers.Adam(learning_rate = LEARNING_RATE),loss='binary_crossentropy', metrics=['accuracy'])
+    
+    history = model.fit(train_features,train_labels,
+                        epochs = N_EPOCHS,
+                        validation_data = (validation_feature, validation_labels),
+                        batch_size = N_BATCHS)
+                        
+    # 한개 이미지 추론
+    from tensorflow.keras.preprocessing.image import load_img, img_to_array
+    def predict_cat_dog(path,model, mode = False):
+        class_name = ['고양이','강아지']
+        img = load_img(path, target_size = (150,150,3))
+        sample = img_to_array(img)[np.newaxis,...]
+        sample = sample/255.
+        
+        if mode: # conv_base를 거치도록
+            cb = VGG16(include_top=False, weights='imagenet', input_shape = (150,150,3))
+            sample = cb.predict(sample)
+            
+        pred = model.predict(sample)
+        pred_class = np.where(pred<0.5,0,1)
+        pred_class_name = class_name[pred_class[0,0]]
+        
+        return pred, pred_class, pred_class_name
+        
+      # 확인
+      predict_cat_dog('/content/dog.jpg',model, mode=True)
+        
+
+```
 ## Pretrained Network를 이용해 새로운 모델 구현하는 방식
 
   - Conv_base의 feature extractiono부분에 fully connected layer를 추가하여 모형 생성
