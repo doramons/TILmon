@@ -70,6 +70,18 @@
     - code
         - 변환시킬 색공간 타입지정
         - cv2.COLOR_XXX2YYY형태의 상수 지정(XXX를 YYY로 변환)
+            - cv2.COLOR_BGR2GRAY/cv2.COLOR_GRAY2BGR(BGR<->GRAY)
+            - cv2.COLOR_BGR2RGB/cv2.COLOR_RGB2BGR(BGR <->RGB)
+            - cv2.COLOR_BGR2HSV/cv2.COLOR_HSV2BGR(BGR <->HSV)
+
+   > ### HSV
+   >  - Hue: 색상, 색의 종류
+   >  - Saturation: 채도, 색의선명도
+   >  - Value: 명도, 밝기
+   >  
+![image](https://user-images.githubusercontent.com/76146752/116889933-155e2600-ac68-11eb-9180-b2f3906d3a75.png)
+![image](https://user-images.githubusercontent.com/76146752/116889952-18f1ad00-ac68-11eb-8054-4556e230f1b5.png)
+
 
 ``` python
     #BGR -> RGB
@@ -77,12 +89,133 @@
     plt.figure(figsize=(10,10))
     plt.imshow(lenna_rgb)
     plt.axis('off')
+    plt.show
+```
+![image](https://user-images.githubusercontent.com/76146752/116890131-3f174d00-ac68-11eb-9f05-7647828c9a25.png)
+
+
+
+
+``` python
+    #BGR -> GRAY
+    lenna_gray= cv2.cvtColor(lenna, cv2.COLOR_BGR2GRAY)
+    plt.figure(figsize=(10,10))
+    plt.imshow(lenna_gray, cmap='gray')
+    plt.axis('off')
     plt.show()
+    
+```
+![image](https://user-images.githubusercontent.com/76146752/116890275-69690a80-ac68-11eb-8dd1-bbf752341b2d.png)
+
+``` python
+    blue = lenna[:,:,0] #BGR이라 0이 blue
+    green = lenna[:,:,1]
+    red = lenna[:,:,2]
 ```
 
+### 채널확인
+  - 채널별로 나눠 이미지 출력
 
+``` python
+    plt.figure(figsize=(20,20))
+    plt.subplot(2,2,1)
+    plt.title('original', fontsize=20)
+    plt.imshow(lenna[:,:,::-1])
+    plt.axis('off')
+    
+    plt.subplot(2,2,2)
+    plt.title('blue',fontsize=20)
+    plt.imshow(blue, cmap='gray')
+    plt.axis('off')
+    
+    plt.subplot(2,2,3)
+    plt.title('green',fontsize=20)
+    plt.imshow(green,cmap='gray')
+    plt.axis('off')
+    
+    plt.tight_layout()
+    plt.show()
+```
+![image](https://user-images.githubusercontent.com/76146752/116892152-7d157080-ac6a-11eb-8320-a0632e3995a4.png)
 
+### cv2에서 이미지 출력
+  - cv2.imshow(winname, mat)
+     - 창을 띄워 이미지를 출력한다
+     - winname: 창 이름
+        - 창이름이 같으면 같은 창에 띄운다
+     - mat : 출력할 이미지(ndarray)
+        - dtype이 uint8이어야 정상 출력된다(float일 경우 255를 곱해서 출력한다)
+  - cv2.imwrite(filename, img): bool
+     - 이미지 파일로 저장
+     - filename : 저장할 파일경로
+     - img : 저장할 이미지(ndarray)
 
+``` python
+    cv2.imshow('img',lenna)
+    print(cv2.waitKey(0))
+    cv2.imshow('img',lenna_gray)
+    print(cv2.waitKey(0)) # 입력된 키의 번호
+    cv2.destroyAllWindows()
+    
+    ord('q'), ord('a') # ord() : 문자를 정수로 변환
+    
+    # 특정 키를 클릭했을 때 종료
+    cv2.imshow('img',lenna)
+    while True:
+      if cv2.waitKey(0) == ord('q'): # q를 입력할때만 종료
+          break
+    cv2.destroyAllWindows()
+    
+    # 파일로 저장
+    import os
+    if not os.path.isdir('output'):
+      os.mkdir('output')
+      
+    cv2.imwrite('./output/lenna_gray.jpg',lenna_gray) # 있는 디렉토리에 저장해야 한다
+```
 
+### 동영상 처리
+  #### 동영상 읽기
+  
+  - VideoCapture 클래스 사용
+      - 객체 생성
+        - VideoCapture('동영상파일 경로'): 동영상파일
+        - VIdeoCapture(웹캠 ID) : 웹캠
+  - VideoCapture의 주요 메소드
+      - isOpened(): bool
+          - 입력대상과 연결되었는지 여부 반환
+      - read() : (bool, img)
+          - Frame 이미지로 읽기
+          - 반환값
+              - bool: 읽었는지 여부
+              - img : 읽은 이미지(ndarray)
 
+#### 웹캠
 
+``` python
+    import cv2
+    
+    # VideoCapture(정수) : 웹캠 연동
+    cap = cv2.VideoCapture(0) # 웹캠이 하나밖에 없으므로 0
+    
+    # 연동 성공여부
+    if cap.isOpened() == False:
+      print('웹캠 연결 실패')
+      exit(1) # 프로그램 실행 종료, 1: 비정상 종료
+      
+    while True:
+        # 웹캠으로부터 영상이미지(Frame)을 읽기
+        ret, img = cap.read() # ret: boolean, img: ndarray -이미지
+        
+        if not ret: # 이미지 캠쳐 실패
+            print('이미지 캡쳐 실패')
+            break
+            
+        # 캡쳐한 이미지를 화면에 출력
+        img = cv2.flip(img,-1) # 양수: 수평반전. 0 : 수직반전, 음수: 수평+ 수직반전
+        cv2.imshow('Frame', img)
+        
+        if cv2.waitKey(1) :  == ord('q') : 
+         
+         
+         
