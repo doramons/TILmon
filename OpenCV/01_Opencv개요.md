@@ -215,7 +215,22 @@
         img = cv2.flip(img,-1) # 양수: 수평반전. 0 : 수직반전, 음수: 수평+ 수직반전
         cv2.imshow('Frame', img)
         
-        if cv2.waitKey(1) :  == ord('q') : 
-         
+        if cv2.waitKey(1) :  == ord('q') :
+            break
+            
+    cap.release() # 웹캠 연결 종료
+    cv2.destroyAllWindows() # 출력창을 종료
+```
+
+#### 동영상
+
+``` python
+    import cv2
+    
+    # VideoCapture(정수) : 웹캠 연동
+    
+    cap = cv2. VideoCapture('images/wave.mp4')
+    
+    # 연동 성공 
          
          
