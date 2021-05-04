@@ -231,6 +231,100 @@
     
     cap = cv2. VideoCapture('images/wave.mp4')
     
-    # 연동 성공 
-         
-         
+    # 연동 성공 여부
+    if cap.isOpened() == False:
+      print('영상과 연결 실패')
+      exit(1) # 프로그램 실행 종료1 : 비정상 종료
+      
+    FPS = cap.get(cv2.CAP_PROP_FPS) # 영상의 fps값을 조회 30: 1초에 30프레임을 출력
+    delay_time = int(np.round(1000/FPS)) # 1000 밀리초 (1초)/FPS
+    cnt = 0
+    while True:
+      # 웹캠으로부터 영상이미지(Frame)을 읽기
+      ret, img = cap.read() # ret: boolean, img: ndarray-이미지
+      if not ret:
+        print('이미지 캡쳐 실패')
+        break
+        
+      # 캡처한 이미지를 화면에 출력
+      img = cv2.flip(img, 1) # 양수: 좌우반전, 0: 상하반전, 음수: 상하좌우 반전
+      cv2.imshow('Frame', img)
+      # 파일로 저장
+      cv2.imwrite('test/output_{}.jpg'.format(cnt), img)
+      
+      cnt+=1
+      
+      if cv2.waitKey(delay_time) == ord('q'): # q를 입력받으면 웹캠 이미지 읽기(capture)종료
+      
+    cap.release() #웹캠 연결 종료
+    cv2.destroyAllWindows() #출력창을 종료
+```
+
+#### 동영상 저장
+  - capture(read)한 이미지 프레임을 연속적으로 저장하면 동영상 저장이 된다
+  - VideoWriter 객체를 이용해 저장
+      - `VideoWriter(filename, codec, fps, size)`
+          - filename : 저장경로
+          - codec
+              - VideoWriter_fourcc 이용
+              ![image](https://user-images.githubusercontent.com/76146752/116949476-4a489800-acbd-11eb-93a5-fc6396031b18.png)
+
+          - fps
+              - FPS(Frame Per Second) -초당 몇 프레임인지 지정
+          - size
+              - 저장할 frame크기로 원본 동영상이나 웹캠의 width, height 순서로 넣는다
+      - VideoWriter().write(img)
+          - Frame 저장
+
+``` python
+    # 웹캠
+    import cv2
+    cap = cv2.VideoCapture(0) # 웹캠 연결
+    
+    if not cap.isOpened():
+      print('웹캠 연결 실패')
+      exit(1)
+    # Frame(이미지) 한장을 캡처 - 웹캠의 width , height 조회
+    ret, img = cap.read()
+    if not ret:
+      print('캡처 실패')
+      exit(1)
+    
+    height, width = img.shape[0], img.shape[1]
+    fps = cap.get(cv2.CAP_PROP_FPS)
+    delay = int(np.round(1000/fps))
+    
+    codec = cv2.VideoWriter_fourcc(*"MJPG") # 이렇게 풀려서 들어감 -> ("M","J","P","G")
+    
+    # VideoWriter 생성
+    writer = cv2.VideoWriter('output/webcam_output.avi', codec,fps(width,height))
+    
+    if not writer.isOpened():
+      print('동영상 파일로 출력할 수 없습니다')
+      exit(1)
+      
+    while True:
+      ret, img = cap.read()
+      if not ret:
+         print('캡처 실패')
+         break
+      img = cv2.flip(img,1)
+      writer.write(img)
+      cv2.imshow('frame',img)
+      
+      if cv2.waitKey(1) == ord('q'):
+          break
+          
+    cap.release() # 웹캠 연결 종료
+    writer.release() #출력 연결 종료
+    cv2.destroyAllWindows() # 출력 화면을 종료
+```
+    
+    
+    
+    
+    
+![image](https://user-images.githubusercontent.com/76146752/116947676-53833600-acb8-11eb-9fd1-f3030ff51b67.png)
+
+### VideoCapture 속성
+![image](https://user-images.githubusercontent.com/76146752/116947810-a52bc080-acb8-11eb-99ea-4aa7ef50b75e.png)
