@@ -64,6 +64,24 @@
   - doc : https://google-images-download.readthedocs.io/en/latest/installation.html
   - github : https://github.com/Joeclinton1/google-images-download
 
+#### 설치
+  - `!pip install git+https://github.com/Joeclinton1/google-images-download.git
+  - 100개 이상의 이미지를 다운받기 위해서는 chromdriver를 받아서 옵션에 설정한다
+      - https://chromedriver.chromium.org/downloads
+
+``` python
+    !pip install git+https://github.com/Joeclinton1/google-images-download.git
+    
+```
+
+#### 명령 프롬프트에서 실행
+  - 구문
+      googleimagesdownload --옵션 옵션값
+      ex) googleimagesdownload --keywords "Polar bears, balons, Beaches" --limit 20 -f jpg
+      
+  - chrome driver 연동시 `--chromedriver 드라이버경로` 설정
+      googleimagesdownload --keywords "Poloar bears, baloons, Beaches" --limit 1000 /chromedir C:\Users\domain\\Downloads\chromedriver_sin32\chromew
+
  
 
 
